@@ -1,0 +1,89 @@
+<html>
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>library_web1.0</title>
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Lora">
+<link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/fonts/ionicons.min.css">
+<link rel="stylesheet" href="/assets/fonts/simple-line-icons.min.css">
+<link rel="stylesheet"
+	href="/assets/css/Articale-List-With-Image-Zoom.css">
+<link rel="stylesheet" href="/assets/css/Article-Dual-Column.css">
+<link rel="stylesheet" href="/assets/css/Article-List.css">
+<link rel="stylesheet" href="/assets/css/Footer-Basic.css">
+<link rel="stylesheet" href="/assets/css/Forum---Thread-listing-1.css">
+<link rel="stylesheet" href="/assets/css/Forum---Thread-listing.css">
+<link rel="stylesheet" href="/assets/css/Login-screen.css">
+<link rel="stylesheet"
+	href="/assets/css/Navbar---Logo-Left---Phone-Logo-Left.css">
+<link rel="stylesheet" href="/assets/css/Navigation-with-Search.css">
+<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="/assets/css/Team-Boxed.css">
+<link rel="stylesheet" href="/assets/css/Testimonials.css">
+
+
+</head>
+
+<body style="filter: saturate(199%);">
+	<div th:insert="navbar::navbar"></div>
+	<div class="article-list">
+		<div class="container">
+			<div class="intro">
+				<h2 class="text-center">Historique des prêts</h2>
+				<p class="text-center">L'ensemble de mes prêts.</p>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<form>
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"> </span>
+						</div>
+					</div>
+				</form>
+				<div>
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item" role="presentation"><a
+							class="nav-link active" role="tab" data-toggle="tab"
+							href="#tab-1">Mes prêts</a></li>
+					</ul>
+					
+					<div class="tab-content">
+					<tr th:each="loan: ${loanBeans}">
+						<div class="tab-pane active" role="tabpanel" id="tab-1">
+							<ul class="thread-list">
+								<li class="thread"><span class="time" style="width: 83px;"><td
+									th:text="${loan.startBorrowingDate}" /></span><span
+									class="title"><td
+									th:text="${loan.bookDTO.title}" />&nbsp;</span><span class="title"
+									style="font-size: 16px;">de <td
+									th:text="${loan.bookDTO.author}" /></span><span class="icon"
+									style="filter: brightness(102%) contrast(97%) grayscale(33%) saturate(80%); color: #212529;">
+										<a class="subscribe" href="javascript:void(0)"><label
+											style="font-size: 16px;"><td
+									th:text="${loan.status}" /></label></a><a
+										class="flag" href="javascript:void(0)"></a>
+								</span></li>
+							</ul>
+						</div>
+						</tr>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

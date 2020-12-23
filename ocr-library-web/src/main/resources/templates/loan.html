@@ -1,0 +1,86 @@
+<html>
+
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>library_web1.0</title>
+<link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Lora">
+<link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/fonts/ionicons.min.css">
+<link rel="stylesheet" href="/assets/fonts/simple-line-icons.min.css">
+<link rel="stylesheet" href="/assets/css/Article-Dual-Column.css">
+<link rel="stylesheet" href="/assets/css/Article-List.css">
+<link rel="stylesheet" href="/assets/css/Footer-Basic.css">
+<link rel="stylesheet" href="/assets/css/Login-screen.css">
+<link rel="stylesheet"
+	href="/assets/css/Navbar---Logo-Left---Phone-Logo-Left.css">
+<link rel="stylesheet" href="/assets/css/Navigation-with-Search.css">
+<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="/assets/css/Team-Boxed.css">
+<link rel="stylesheet" href="/assets/css/Testimonials.css">
+</head>
+<body>
+
+	<div th:insert="navbar::navbar"></div>
+
+	<div class="team-boxed" style="background: rgba(238, 244, 247, 0);">
+		<div class="container">
+			<div class="intro">
+				<h2 class="text-center"
+					style="padding: -27px; margin: 19px; font-family: Lora, serif;">Mes
+					prêts en cours</h2>
+			</div>
+			<div class="row people">
+
+				<tr th:each="loans: ${loanBeans}">
+					<div class="col-md-6 col-lg-4 item"
+						th:if="${loans.status!='Livre rendu'}">
+						<div class="box" style="text-align: center;">
+							<img class="rounded-circle" th:src="${loans.bookDTO.imageLink}">
+							<h3 class="name">
+								<td th:text="${loans.bookDTO.title}" />
+							</h3>
+							<p class="title">
+								<td th:text="${loans.bookDTO.author}" />
+							</p>
+							<p class="description">Date de début de prêt:</p>
+							<label><td th:text="${loans.startBorrowingDate}" /></label>
+							<p class="description">Date de fin de prêt:</p>
+							<label th:if="${loans.status=='En cours de prêt'}"><strong><td
+									th:text="${loans.endBorrowingDate}" /></strong></label> <label
+								th:if="${loans.status=='Prêt prolongé'}"><strong><td
+									th:text="${loans.prolongationDate}" /></strong></label>
+							<div class="alert alert-info" th:if="${loans.status=='Prêt prolongé'}">
+								<strong>Info!</strong> Votre prêt a été prolongé.
+							</div>
+							<p class="description">
+								&nbsp;
+								<button class="btn btn-outline-primary btn-sm" type="button"
+									style="margin: 1px; padding: 3px;"
+									th:if="${loans.status=='En cours de prêt'}">
+									<a
+										th:href=@{/user/loan/{loanId}/extendDate(loanId=${loans.id})}>
+										Prolonger le prêt</a>
+								</button>
+							</p>
+							</td>
+						</div>
+					</div>
+
+				</tr>
+			</div>
+		</div>
+	</div>
+
+	<div th:insert="footer::footer" /></div>
+
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
