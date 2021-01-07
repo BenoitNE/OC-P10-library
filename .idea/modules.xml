@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ocr-library-api/ocr-library-api.iml" filepath="$PROJECT_DIR$/ocr-library-api/ocr-library-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ocr-library-batch/ocr-library-batch.iml" filepath="$PROJECT_DIR$/ocr-library-batch/ocr-library-batch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ocr-library-dto/ocr-library-dto.iml" filepath="$PROJECT_DIR$/ocr-library-dto/ocr-library-dto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ocr-library-parent.iml" filepath="$PROJECT_DIR$/ocr-library-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ocr-library-web/ocr-library-web.iml" filepath="$PROJECT_DIR$/ocr-library-web/ocr-library-web.iml" />
+    </modules>
+  </component>
+</project>

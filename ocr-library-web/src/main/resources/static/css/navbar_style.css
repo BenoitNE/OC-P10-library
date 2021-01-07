@@ -1,0 +1,20 @@
+/* Général */
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: #f1f1f1;
+}
+
+/* Nav */
+
+img{
+    width: 100px;
+}
+
+.logout{
+    font-size: 15px;
+    padding-top: 100px;
+}
+

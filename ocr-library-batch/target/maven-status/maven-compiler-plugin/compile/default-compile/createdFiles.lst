@@ -1,0 +1,10 @@
+fr/benoitne/librarybatch/config/MySQLConfig.class
+fr/benoitne/librarybatch/service/LoanFiltersService.class
+fr/benoitne/librarybatch/proxy/LibraryProxy.class
+fr/benoitne/librarybatch/bean/LoanBean.class
+fr/benoitne/librarybatch/schedule/MailRelaunchScheduler.class
+fr/benoitne/librarybatch/repository/EmailTokenRepository.class
+fr/benoitne/librarybatch/config/EmailConfig.class
+fr/benoitne/librarybatch/OcrLibraryApplication.class
+fr/benoitne/librarybatch/service/LoanComparingDatesService.class
+fr/benoitne/librarybatch/entity/EmailTokenEntity.class
