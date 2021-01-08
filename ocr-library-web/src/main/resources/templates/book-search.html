@@ -2,31 +2,39 @@
 <html lang="en">
 
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>navbar</title>
-        
-        <!-- CSS de Bootstrap -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>library_web1.0</title>
+        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Lora">
+        <link rel="stylesheet" href="/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="/fonts/ionicons.min.css">
+        <link rel="stylesheet" href="/fonts/simple-line-icons.min.css">
+        <link rel="stylesheet"
+              href="/css/Articale-List-With-Image-Zoom.css">
+        <link rel="stylesheet" href="/css/Article-Dual-Column.css">
+        <link rel="stylesheet" href="/css/Article-List.css">
+        <link rel="stylesheet" href="/css/Footer-Basic.css">
+        <link rel="stylesheet" href="/css/Forum---Thread-listing-1.css">
+        <link rel="stylesheet" href="/css/Forum---Thread-listing.css">
+        <link rel="stylesheet" href="/css/Login-screen.css">
+        <link rel="stylesheet"
+              href="/assets/css/Navbar---Logo-Left---Phone-Logo-Left.css">
+        <link rel="stylesheet" href="/css/Navigation-with-Search.css">
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/Team-Boxed.css">
+        <link rel="stylesheet" href="/css/Testimonials.css">
+
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/navbar_style.css">
-        
-        <!-- Custom Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
     </head>
 
     <body>
-
+    <div th:insert="navbar::navbar"></div>
         <div class="article-dual-column">
-            <div th:insert="navbar::navbar"></div>
+
             <div th:if="${booksSearch.empty}">
                 <p class="text-center">Aucun ouvrage n'a été trouvé pour cette
                     recherche.</p>
@@ -59,22 +67,22 @@
                             <div class="toc">
                                 <p>Informations:</p>
                                 <ul>
-                                    <li><a href="#"><td th:text="${book.title}" /></a></li>
-                                    <li><a href="#">de
+                                    <li><p><u><td th:text="${book.title}" /></u></p></li>
+                                    <li><p>de
                                             <td th:text="${book.author}" />
-                                    </a></li>
-                                    <li><a href="#">édition:
+                                    </p></li>
+                                    <li><p>édition:
                                             <td th:text="${book.publishing}" />
-                                    </a></li>
-                                    <li><a href="#"><td th:text="${book.pageNumber}" />
-                                            pages</a></li>
-                                    <li><a href="#">genre:
+                                    </p></li>
+                                    <li><p><td th:text="${book.pageNumber}" />
+                                            pages</p></li>
+                                    <li><p>genre:
                                             <td th:text="${book.type}" />
-                                    </a></li>
-                                    <li><a href="#"><td th:text="${book.status}" /></a></li>
-                                    <li><a href="#">quantité de disponible:
+                                    <p></li>
+                                    <li><p><td th:text="${book.status}" /></p></li>
+                                    <li><p>quantité de disponible:
                                             <td th:text="${book.quantity}" />
-                                    </a></li>
+                                    <p></li>
                                 </ul>
                             </div>
                         </div>
@@ -85,8 +93,13 @@
                                 </p>
                                 <h2>Résumé</h2>
                                 <p>
-                                    <td th:text="${book.summary}" /><br>
+                                    <td th:text="${book.summary}" />
                                     <br></p>
+                                    <hr>
+<!--                                th:href=@{/user/loan/{loanId}/extendDate(loanId=${loans.id})}-->
+                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})}><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>
+                                <br>
+                                <br>
                             </div>
                         </div>
                     </div>

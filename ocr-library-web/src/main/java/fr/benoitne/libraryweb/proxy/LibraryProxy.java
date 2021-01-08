@@ -3,6 +3,7 @@ package fr.benoitne.libraryweb.proxy;
 import java.util.List;
 import java.util.Optional;
 
+import fr.benoitne.library.dto.LoanDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public interface LibraryProxy {
 	@RequestMapping(method = RequestMethod.GET, path = "/user/authorization")
 	@ResponseBody
 	public UserBean getAuthorization(@RequestParam("userName") String userName,
-			@RequestParam("password") String password);
+									 @RequestParam("password") String password);
 
 	@RequestMapping(method = RequestMethod.GET, path = "/user/loan")
 	@ResponseBody
@@ -39,8 +40,13 @@ public interface LibraryProxy {
 	@RequestMapping(method = RequestMethod.GET, path = "/loan/{loanId}/extendDate")
 	@ResponseBody
 	LoanBean extendDate(@RequestParam(value = "loanId") long id);
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = "/user/userName")
 	@ResponseBody
 	public UserBean loadUserByUsername(@RequestParam(value = "userName") String userName);
+
+	@RequestMapping(method = RequestMethod.POST, path = "/loan/add")
+	@ResponseBody
+	public LoanBean newLoan(@RequestParam(value = "userId") long userId, @RequestParam(value = "bookId") long bookId);
+
 }

@@ -38,9 +38,9 @@
         <!-- Nav -->
 
         <div class="nav">
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" id="main-nav">
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" id="main-nav">
                 <div class="container">
-                     <a class="navbar-brand" href="/user/home"><img  src="/img/library_home_reduce.jpg" style="width: 100px;" class="img-fluid rounded-circle"></a>
+                     <a class="navbar-brand" href="/user/home"><img src="/img/library_home_reduce.jpg" style="width: 100px;" class="imgnav img-fluid rounded-circle"></a>
                     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -62,11 +62,15 @@
 
             </nav>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <p style="text-align: left; height: 32px; margin: 10px;">
             Bienvenue @ <i style="text-align: left; height: 32px; margin: 10px;"
                 th:text="${session.userName}" th:unless="${session == null}"> .</i>
-        </p>
-    
+
         <div th:insert="home::searchBook"></div>
 
 
@@ -83,17 +87,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
-
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-
 
 
     </body>

@@ -45,4 +45,12 @@ public class LoanController {
 		return "historical";
 	}
 
+	@GetMapping(value = "/loan/{bookId}/add")
+	public String addLoan (@PathVariable(value = "bookId") long bookId, Model model, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		long idUser = (long) session.getAttribute("id");
+		feignProxy.newLoan(idUser,bookId);
+		return goToLoans(model, request);
+	}
+
 }

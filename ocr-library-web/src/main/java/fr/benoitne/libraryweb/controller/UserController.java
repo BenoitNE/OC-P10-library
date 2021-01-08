@@ -33,6 +33,7 @@ public class UserController {
 		UserBean userBean = feignProxy.loadUserByUsername(auth.getName());
 		session.setAttribute("userName", userBean.getUserName());
 		session.setAttribute("role", userBean.getRole());
+		session.setAttribute("id", userBean.getId());
 		return "home";
 	}
 

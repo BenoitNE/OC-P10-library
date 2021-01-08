@@ -81,23 +81,6 @@ public class LoanController {
 		return loanDTOAssembler.convertToDTO(loanEntity);
 	}
 
-	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
-	@ResponseBody
-	public LoanDTO loanReturn(long loanId) {
-		Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
-		if (optLoanEntity.isPresent()) {
-			LoanEntity loanEntity = optLoanEntity.get();
-			BookEntity bookEntity = loanEntity.getBookEntity();
-			bookEntity.setQuantity(bookEntity.getQuantity() + 1);
-			setLoanStatus.finalStatus(loanEntity);
-			bookRepository.save(bookEntity);
-			loanRepository.save(loanEntity);
-			return loanDTOAssembler.convertToDTO(loanEntity);
-		} else {
-			return null;
-		}
-	}
-
 	private LoanEntity add(long userId, long bookId) {
 		LoanEntity loanEntity = new LoanEntity();
 		Optional<BookEntity> optBookEntity = bookRepository.findById(bookId);
@@ -121,5 +104,23 @@ public class LoanController {
 			return null;
 		}
 	}
+
+	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
+	@ResponseBody
+	public LoanDTO loanReturn(long loanId) {
+		Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
+		if (optLoanEntity.isPresent()) {
+			LoanEntity loanEntity = optLoanEntity.get();
+			BookEntity bookEntity = loanEntity.getBookEntity();
+			bookEntity.setQuantity(bookEntity.getQuantity() + 1);
+			setLoanStatus.finalStatus(loanEntity);
+			bookRepository.save(bookEntity);
+			loanRepository.save(loanEntity);
+			return loanDTOAssembler.convertToDTO(loanEntity);
+		} else {
+			return null;
+		}
+	}
+
 
 }

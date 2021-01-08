@@ -9,9 +9,10 @@ body {
 
 /* Nav */
 
-img{
+.img{
     width: 100px;
 }
+
 
 .logout{
     font-size: 15px;

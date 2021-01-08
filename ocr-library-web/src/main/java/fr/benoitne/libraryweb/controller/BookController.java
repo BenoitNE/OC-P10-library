@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fr.benoitne.libraryweb.bean.BookBean;
 import fr.benoitne.libraryweb.proxy.LibraryProxy;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class BookController {
 
@@ -36,9 +38,7 @@ public class BookController {
 		model.addAttribute("booksSearch", bookBeans);
 		
 		return "book-search";
-		
 	}
-	
-	
+
 	
 }
