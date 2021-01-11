@@ -80,9 +80,11 @@
                                             <td th:text="${book.type}" />
                                     <p></li>
                                     <li><p><td th:text="${book.status}" /></p></li>
-                                    <li><p>quantité de disponible:
-                                            <td th:text="${book.quantity}" />
-                                    <p></li>
+                                    <li><p th:if="${book.quantity>=0}">quantité de disponible:
+                                            <td th:text="${book.quantity}" /> </p>
+                                        <p th:if="${book.quantity<0}"> quantité de disponible: 0 </p>
+
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -99,9 +101,12 @@
 
 
                                 <div class="loan">
-                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})}><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>
-                                    <label style="margin-left:7px;" class="alert alert-dark">
+                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})} th:if="${book.status=='disponible'}"><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>
+                                    <label style="margin-left:7px;" class="alert alert-dark" th:if="${book.status=='disponible'}">
                                         <strong>Liste d'attente: </strong> le livre est disponible.
+                                    </label>
+                                    <label style="margin-left:7px;" class="alert alert-dark" th:if="${book.status=='indisponible'}">
+                                        toto
                                     </label>
                                 </div>
                                 <br>

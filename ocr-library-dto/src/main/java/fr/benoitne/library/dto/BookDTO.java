@@ -1,6 +1,7 @@
 package fr.benoitne.library.dto;
 
 
+import java.util.List;
 
 public class BookDTO {
 
@@ -25,6 +26,8 @@ public class BookDTO {
 	private String summary;
 	
 	private LibraryDTO libraryDTO;
+
+	private List<String> userWaitingLine;
 
 	public long getId() {
 		return id;
@@ -106,7 +109,6 @@ public class BookDTO {
 		this.imageLink = imageLink;
 	}
 
-
 	public LibraryDTO getLibraryDTO() {
 		return libraryDTO;
 	}
@@ -115,5 +117,11 @@ public class BookDTO {
 		this.libraryDTO = libraryDTO;
 	}
 
-	
+	public List<String> getUserWaitingLine() {
+		return userWaitingLine;
+	}
+
+	public void setUserWaitingLine(List<String> userWaitingLine) {
+		this.userWaitingLine = userWaitingLine;
+	}
 }

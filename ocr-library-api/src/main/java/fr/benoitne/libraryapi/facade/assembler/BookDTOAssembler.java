@@ -30,6 +30,7 @@ public class BookDTOAssembler {
 		bookDTO.setQuantity(bookEntity.getQuantity());
 		bookDTO.setSummary(bookEntity.getSummary());
 		bookDTO.setLibraryDTO(libraryDTOAssembler.convertToDTO(bookEntity.getLibraryEntity()));
+		bookDTO.setUserWaitingLine(bookEntity.getUserWaitingLine());
 		return bookDTO;
 	}
 
@@ -46,6 +47,7 @@ public class BookDTOAssembler {
 		bookEntity.setQuantity(bookDTO.getQuantity());
 		bookEntity.setSummary(bookDTO.getSummary());
 		bookEntity.setLibraryEntity(libraryDTOAssembler.convertToEntity(bookDTO.getLibraryDTO()));
+		bookEntity.setUserWaitingLine(bookDTO.getUserWaitingLine());
 		return bookEntity;
 	}
 

@@ -2,16 +2,7 @@ package fr.benoitne.libraryapi.persistence.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
@@ -57,7 +48,9 @@ public class BookEntity {
 	@JoinColumn(name = "libraryEntity_id")
 	private LibraryEntity libraryEntity;
 
-	
+	@Column
+	@ElementCollection(targetClass=String.class)
+	private List <String> userWaitingLine;
 
 	public BookEntity() {
 		super();
@@ -159,7 +152,15 @@ public class BookEntity {
 		this.quantity = quantity;
 	}
 
-//	@Override
+	public List<String> getUserWaitingLine() {
+		return userWaitingLine;
+	}
+
+	public void setUserWaitingLine(List<String> userWaitingLine) {
+		this.userWaitingLine = userWaitingLine;
+	}
+
+	//	@Override
 //	public String toString() {
 //		return "BookEntity [id=" + id + ", title=" + title + ", author=" + author + ", pageNumber=" + pageNumber
 //				+ ", type=" + type + ", publishing=" + publishing + ", status=" + status + ", imageLink=" + imageLink
