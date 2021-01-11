@@ -29,6 +29,8 @@ public class BookDTO {
 
 	private List<String> userWaitingLine;
 
+	private List<LoanDTO> loanDTOList;
+
 	public long getId() {
 		return id;
 	}
@@ -123,5 +125,13 @@ public class BookDTO {
 
 	public void setUserWaitingLine(List<String> userWaitingLine) {
 		this.userWaitingLine = userWaitingLine;
+	}
+
+	public List<LoanDTO> getLoanDTOList() {
+		return loanDTOList;
+	}
+
+	public void setLoanDTOList(List<LoanDTO> loanDTOList) {
+		this.loanDTOList = loanDTOList;
 	}
 }

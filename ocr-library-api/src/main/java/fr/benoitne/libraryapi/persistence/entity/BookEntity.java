@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import fr.benoitne.library.dto.LoanDTO;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;

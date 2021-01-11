@@ -1,5 +1,7 @@
 package fr.benoitne.libraryweb.bean;
 
+import java.util.List;
+
 public class UserBean {
 
 	private long id;
@@ -19,6 +21,8 @@ public class UserBean {
 	private String role;
 	
 	private String password;
+
+	private List<LoanBean> loanDTOList;
 		
 
 	public UserBean() {
@@ -88,8 +92,14 @@ public class UserBean {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
+
+	public List<LoanBean> getLoanDTOList() {
+		return loanDTOList;
+	}
+
+	public void setLoanDTOList(List<LoanBean> loanDTOList) {
+		this.loanDTOList = loanDTOList;
+	}
 
 	public String getPassword() {
 		return password;

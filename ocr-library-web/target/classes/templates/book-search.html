@@ -101,12 +101,14 @@
 
 
                                 <div class="loan">
-                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})} th:if="${book.status=='disponible'}"><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>
+                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})} th:if="${book.userWaitingLine.empty}"><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>
+<!--                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})} th:if="${#lists.isEmpty(book.loanDTOList)}"><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>-->
+                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})} th:if="${!book.userWaitingLine.empty}"><u>TITI</u> <i class="fa fa-book" aria-hidden="true"></i></a>
                                     <label style="margin-left:7px;" class="alert alert-dark" th:if="${book.status=='disponible'}">
                                         <strong>Liste d'attente: </strong> le livre est disponible.
                                     </label>
                                     <label style="margin-left:7px;" class="alert alert-dark" th:if="${book.status=='indisponible'}">
-                                        toto
+                                        3/5
                                     </label>
                                 </div>
                                 <br>

@@ -1,6 +1,8 @@
 package fr.benoitne.libraryweb.bean;
 
 
+import java.util.List;
+
 public class BookBean {
 
 	private long id;
@@ -23,7 +25,11 @@ public class BookBean {
 
 	private String summary;
 
-	private LibraryBean libraryBean;
+	private LibraryBean libraryDTO;
+
+	private List<LoanBean> loanDTOList;
+
+	private List<String> userWaitingLine;
 	
 	public BookBean() {
 		super();
@@ -108,15 +114,29 @@ public class BookBean {
 	public void setImageLink(String imageLink) {
 		this.imageLink = imageLink;
 	}
-	
-	
 
-	public LibraryBean getLibraryBean() {
-		return libraryBean;
+	public List<LoanBean> getLoanDTOList() {
+		return loanDTOList;
 	}
 
-	public void setLibraryBean(LibraryBean libraryBean) {
-		this.libraryBean = libraryBean;
+	public void setLoanDTOList(List<LoanBean> loanDTOList) {
+		this.loanDTOList = loanDTOList;
+	}
+
+	public LibraryBean getLibraryDTO() {
+		return libraryDTO;
+	}
+
+	public void setLibraryDTO(LibraryBean libraryDTO) {
+		this.libraryDTO = libraryDTO;
+	}
+
+	public List<String> getUserWaitingLine() {
+		return userWaitingLine;
+	}
+
+	public void setUserWaitingLine(List<String> userWaitingLine) {
+		this.userWaitingLine = userWaitingLine;
 	}
 
 	@Override
