@@ -17,6 +17,7 @@ fr/benoitne/libraryapi/persistence/repository/LoanRepository.class
 fr/benoitne/libraryapi/facade/controller/BookController.class
 fr/benoitne/libraryapi/persistence/repository/CustomizedUserRepositoryImpl.class
 fr/benoitne/libraryapi/facade/controller/UserController.class
+fr/benoitne/libraryapi/SandBox.class
 fr/benoitne/libraryapi/service/SetLoanStatus.class
 fr/benoitne/libraryapi/persistence/repository/CustomizedLoanRepository.class
 fr/benoitne/libraryapi/exeption/ResourceNotFoundException.class

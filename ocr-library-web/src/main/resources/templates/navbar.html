@@ -1,94 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+<html >
+
+<head>
+<meta charset="utf-8">
+</head>
+
 <div th:fragment="navbar">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <title>library_web1.0</title>
-        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Lora">
-        <link rel="stylesheet" href="/fonts/font-awesome.min.css">
-        <link rel="stylesheet" href="/fonts/ionicons.min.css">
-        <link rel="stylesheet" href="/fonts/simple-line-icons.min.css">
-        <link rel="stylesheet"
-              href="/css/Articale-List-With-Image-Zoom.css">
-        <link rel="stylesheet" href="/css/Article-Dual-Column.css">
-        <link rel="stylesheet" href="/css/Article-List.css">
-        <link rel="stylesheet" href="/css/Footer-Basic.css">
-        <link rel="stylesheet" href="/css/Forum---Thread-listing-1.css">
-        <link rel="stylesheet" href="/css/Forum---Thread-listing.css">
-        <link rel="stylesheet" href="/css/Login-screen.css">
-        <link rel="stylesheet"
-              href="/assets/css/Navbar---Logo-Left---Phone-Logo-Left.css">
-        <link rel="stylesheet" href="/css/Navigation-with-Search.css">
-        <link rel="stylesheet" href="/css/styles.css">
-        <link rel="stylesheet" href="/css/Team-Boxed.css">
-        <link rel="stylesheet" href="/css/Testimonials.css">
 
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="css/navbar_style.css">
+	<nav class="navbar navbar-light navbar-expand-md sticky-top"
+		style="border-bottom: black solid 2px; background: #ffffff;">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/user/home"><img src="/img/library_home_reduce.jpg" style="width: 70px;" class="imgnav img-fluid rounded-circle"></a>
+			<button data-toggle="collapse" class="navbar-toggler"
+				data-target="#navcol-1">
+				<span class="sr-only">Toggle navigation</span><span
+					class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navcol-1">
+				<ul class="nav navbar-nav mx-auto">
+					<li class="nav-item navitems"><a class="nav-link active"
+						href="/user/home">Accueil</a></li>
+					<li class="nav-item navitems"><a href="#" class="nav-link active"
+						data-toggle="modal" data-target="#searchBookModal">Recherche
+							d'ouvrages</a></li>
+					<li class="nav-item navitems"><a class="nav-link active"
+						th:href="@{/user/loan}">Mes prêts</a></li>
+					<li class="nav-item navitems"></li>
+				</ul>
+				<a href="/logout"><label style="width: 65px;">Log-out</label></a>
+			</div>
+		</div>
 
-    </head>
+	</nav>
+	<p style="text-align: left; height: 32px; margin: 10px;">
+		Bienvenue @ <i style="text-align: left; height: 32px; margin: 10px;"
+			th:text="${session.userName}" th:unless="${session == null}"> .</i>
+	</p>
 
-    <body>
-
-
-        <!-- Nav -->
-
-        <div class="nav">
-            <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" id="main-nav">
-                <div class="container">
-                     <a class="navbar-brand" href="/user/home"><img src="/img/library_home_reduce.jpg" style="width: 100px;" class="imgnav img-fluid rounded-circle"></a>
-                    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <ul class="nav navbar-nav mx-auto">
-                            <li class="nav-item navitems"><a class="nav-link active"
-                                href="/user/home">Accueil</a></li>
-                            <li class="nav-item navitems"><a href="#" class="nav-link active"
-                                data-toggle="modal" data-target="#searchBookModal">Recherche
-                                    d'ouvrages</a></li>
-                            <li class="nav-item navitems"><a class="nav-link active"
-                                th:href="@{/user/loan}">Mes prêts</a></li>
-                            <li class="nav-item navitems"></li>
-                        </ul>
-                        <a class="logout" href="/logout"><label>Log-out</label></a>
-                    </div>
-                </div>
-
-
-            </nav>
-        </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <p style="text-align: left; height: 32px; margin: 10px;">
-            Bienvenue @ <i style="text-align: left; height: 32px; margin: 10px;"
-                th:text="${session.userName}" th:unless="${session == null}"> .</i>
-
-        <div th:insert="home::searchBook"></div>
-
-
-
-    <!-- Script Jquery  -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <!-- Popper.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <!-- Javascript de Bootstrap -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-
-
-    </body>
+	<div th:insert="home::searchBook"></div>
+	
+	<script src="/js/jquery.min.js"></script>
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
 </div>
-    </html>
+
+</html>

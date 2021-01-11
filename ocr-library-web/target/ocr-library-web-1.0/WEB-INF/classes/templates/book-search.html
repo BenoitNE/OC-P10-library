@@ -97,7 +97,12 @@
                                     <br></p>
                                     <hr>
 <!--                                th:href=@{/user/loan/{loanId}/extendDate(loanId=${loans.id})}-->
-                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})}"><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>
+                                <div class="loan">
+                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})}><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>
+                                    <label style="margin-left:7px;" class="alert alert-dark">
+                                        <strong>Liste d'attente: </strong> le livre est disponible.
+                                    </label>
+                                </div>
                                 <br>
                                 <br>
                             </div>
