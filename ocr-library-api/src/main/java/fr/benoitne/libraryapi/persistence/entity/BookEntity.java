@@ -39,6 +39,7 @@ public class BookEntity {
 
 	private int quantity;
 
+
 	@Column(length = 2000)
 	private String summary;
 

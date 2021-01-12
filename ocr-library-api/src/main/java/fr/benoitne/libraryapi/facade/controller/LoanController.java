@@ -87,6 +87,7 @@ public class LoanController {
 		Optional<UserEntity> optUserEntity = userRepository.findById(userId);
 		BookEntity bookEntity = optBookEntity.get();
 		UserEntity userEntity = optUserEntity.get();
+		List<LoanEntity> loanEntityList = bookEntity.getLoanEntity();
 		List<String> userWaitingLine = bookEntity.getUserWaitingLine();
 
 		if (optBookEntity.isPresent() && optUserEntity.isPresent()) {
@@ -98,14 +99,14 @@ public class LoanController {
 			loanEntity.setUserEntity(userEntity);
 			setLoanStatus.initialStatus(loanEntity);
 
-			bookEntity.setQuantity(bookEntity.getQuantity() - 1);
+			//bookEntity.setQuantity(bookEntity.getQuantity() - 1);
 
-			if (bookEntity.getQuantity()<1){
+			if ((bookEntity.getQuantity())-(loanEntityList.size())<1){
 				userWaitingLine.add(userEntity.getUserName());
 				bookEntity.setUserWaitingLine(userWaitingLine);
 			}
 
-			if (bookEntity.getQuantity()<=0){
+			if ((bookEntity.getQuantity())-(loanEntityList.size())<=1){
 				bookEntity.setStatus("indisponible");
 			}
 

@@ -80,9 +80,9 @@
                                             <td th:text="${book.type}" />
                                     <p></li>
                                     <li><p><td th:text="${book.status}" /></p></li>
-                                    <li><p th:if="${book.quantity>=0}">quantité de disponible:
-                                            <td th:text="${book.quantity}" /> </p>
-                                        <p th:if="${book.quantity<0}"> quantité de disponible: 0 </p>
+                                    <li><p th:if="${(book.quantity-(#lists.size(book.userLoanList)))>=0}">quantité de disponible:
+                                            <td th:text="${book.quantity-(#lists.size(book.userLoanList))}" /> </p>
+                                        <p th:if="${(book.quantity-(#lists.size(book.userLoanList)))<0}"> quantité de disponible: 0 </p>
 
                                     </li>
                                 </ul>
@@ -100,15 +100,18 @@
                                     <hr>
 
 
-                                <div class="loan">
+                                <div class="loan" th:if="${(book.quantity*2)-(#lists.size(book.userWaitingLine))>0}">
                                     <a th:href=@{/loan/{bookId}/add(bookId=${book.id})} th:if="${not #lists.contains(book.userLoanList, session.userName)}"><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>
-<!--                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})} th:if="${#lists.isEmpty(book.loanDTOList)}"><u>Réservez le livre</u> <i class="fa fa-book" aria-hidden="true"></i></a>-->
-<!--                                    <a th:href=@{/loan/{bookId}/add(bookId=${book.id})} th:if="${!book.userWaitingLine.empty}"><u>TITI</u> <i class="fa fa-book" aria-hidden="true"></i></a>-->
                                     <label style="margin-left:7px;" class="alert alert-dark" th:if="${book.status=='disponible'}">
                                         <strong>Liste d'attente: </strong> le livre est disponible.
                                     </label>
                                     <label style="margin-left:7px;" class="alert alert-dark" th:if="${book.status=='indisponible'}">
-                                        3/5
+                                        <strong>Liste d'attente: </strong>  <td th:text="${#lists.size(book.userWaitingLine)}"/>/<td th:text="${book.quantity*2}"></td>
+                                    </label>
+                                </div>
+                                <div class="loan2" th:if="${(book.quantity*2)-(#lists.size(book.userWaitingLine))<=0}">
+                                    <label style="margin-left:7px;" class="alert alert-dark" th:if="${book.status=='indisponible'}">
+                                        <u>Vous ne pouvez pas réaliser de réservation actuellement</u> <strong>Liste d'attente: </strong>  <td th:text="${#lists.size(book.userWaitingLine)}"/>/<td th:text="${book.quantity*2}"></td>
                                     </label>
                                 </div>
                                 <br>
