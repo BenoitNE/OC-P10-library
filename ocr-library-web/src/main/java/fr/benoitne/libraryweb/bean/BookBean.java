@@ -27,9 +27,9 @@ public class BookBean {
 
 	private LibraryBean libraryDTO;
 
-	private List<LoanBean> loanDTOList;
-
 	private List<String> userWaitingLine;
+
+	private List<String> userLoanList;
 	
 	public BookBean() {
 		super();
@@ -115,14 +115,6 @@ public class BookBean {
 		this.imageLink = imageLink;
 	}
 
-	public List<LoanBean> getLoanDTOList() {
-		return loanDTOList;
-	}
-
-	public void setLoanDTOList(List<LoanBean> loanDTOList) {
-		this.loanDTOList = loanDTOList;
-	}
-
 	public LibraryBean getLibraryDTO() {
 		return libraryDTO;
 	}
@@ -137,6 +129,14 @@ public class BookBean {
 
 	public void setUserWaitingLine(List<String> userWaitingLine) {
 		this.userWaitingLine = userWaitingLine;
+	}
+
+	public List<String> getUserLoanList() {
+		return userLoanList;
+	}
+
+	public void setUserLoanList(List<String> userLoanList) {
+		this.userLoanList = userLoanList;
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public class BookDTO {
 
 	private List<String> userWaitingLine;
 
-	private List<LoanDTO> loanDTOList;
+	private List<String> userLoanList;
 
 	public long getId() {
 		return id;
@@ -127,11 +127,11 @@ public class BookDTO {
 		this.userWaitingLine = userWaitingLine;
 	}
 
-	public List<LoanDTO> getLoanDTOList() {
-		return loanDTOList;
+	public List<String> getUserLoanList() {
+		return userLoanList;
 	}
 
-	public void setLoanDTOList(List<LoanDTO> loanDTOList) {
-		this.loanDTOList = loanDTOList;
+	public void setUserLoanList(List<String> userLoanList) {
+		this.userLoanList = userLoanList;
 	}
 }

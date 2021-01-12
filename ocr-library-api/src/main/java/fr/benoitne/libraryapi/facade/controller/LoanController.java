@@ -98,6 +98,8 @@ public class LoanController {
 			loanEntity.setUserEntity(userEntity);
 			setLoanStatus.initialStatus(loanEntity);
 
+			bookEntity.setQuantity(bookEntity.getQuantity() - 1);
+
 			if (bookEntity.getQuantity()<1){
 				userWaitingLine.add(userEntity.getUserName());
 				bookEntity.setUserWaitingLine(userWaitingLine);
@@ -106,8 +108,6 @@ public class LoanController {
 			if (bookEntity.getQuantity()<=0){
 				bookEntity.setStatus("indisponible");
 			}
-
-			bookEntity.setQuantity(bookEntity.getQuantity() - 1);
 
 			bookRepository.save(bookEntity);
 			loanRepository.save(loanEntity);

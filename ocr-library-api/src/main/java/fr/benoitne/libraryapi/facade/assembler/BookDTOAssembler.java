@@ -1,12 +1,16 @@
 package fr.benoitne.libraryapi.facade.assembler;
 
 
+import fr.benoitne.libraryapi.persistence.entity.LoanEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 import fr.benoitne.library.dto.BookDTO;
 import fr.benoitne.libraryapi.persistence.entity.BookEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -15,8 +19,6 @@ public class BookDTOAssembler {
 	@Autowired
 	private LibraryDTOAssembler libraryDTOAssembler;
 
-
-	
 	public BookDTO convertToDTO(BookEntity bookEntity) {
 		BookDTO bookDTO = new BookDTO();
 		bookDTO.setId(bookEntity.getId());
@@ -31,7 +33,16 @@ public class BookDTOAssembler {
 		bookDTO.setSummary(bookEntity.getSummary());
 		bookDTO.setLibraryDTO(libraryDTOAssembler.convertToDTO(bookEntity.getLibraryEntity()));
 		bookDTO.setUserWaitingLine(bookEntity.getUserWaitingLine());
+		bookDTO.setUserLoanList(getUserLoanList(bookEntity.getLoanEntity()));
 		return bookDTO;
+	}
+
+	private List<String> getUserLoanList (List<LoanEntity>loanEntities){
+		List<String> userList =new ArrayList<>();
+		for (LoanEntity loanEntity:loanEntities){
+			userList.add(loanEntity.getUserEntity().getUserName());
+		}
+		return userList;
 	}
 
 	public BookEntity convertToEntity(BookDTO bookDTO) {
