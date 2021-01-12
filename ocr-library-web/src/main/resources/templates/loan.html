@@ -65,7 +65,7 @@
 								&nbsp;
 								<button class="btn btn-outline-primary btn-sm" type="button"
 									style="margin: 1px; padding: 3px;"
-									th:if="${loans.status=='En cours de prêt'}">
+									th:if="${loans.status=='En cours ou demande de prêt'}">
 									<a
 										th:href=@{/user/loan/{loanId}/extendDate(loanId=${loans.id})}>
 										Prolonger le prêt</a>

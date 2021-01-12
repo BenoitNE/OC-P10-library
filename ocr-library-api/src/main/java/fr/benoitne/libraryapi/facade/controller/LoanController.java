@@ -5,6 +5,9 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import fr.benoitne.libraryapi.facade.assembler.LoanArchiveEntityBuilder;
+import fr.benoitne.libraryapi.persistence.entity.LoanArchiveEntity;
+import fr.benoitne.libraryapi.persistence.repository.LoanArchiveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +38,9 @@ public class LoanController {
 
 	@Autowired
 	private BookRepository bookRepository;
+
+	@Autowired
+	private LoanArchiveRepository loanArchiveRepository;
 
 	@Autowired
 	private LoanDTOAssembler loanDTOAssembler;
@@ -99,8 +105,6 @@ public class LoanController {
 			loanEntity.setUserEntity(userEntity);
 			setLoanStatus.initialStatus(loanEntity);
 
-			//bookEntity.setQuantity(bookEntity.getQuantity() - 1);
-
 			if ((bookEntity.getQuantity())-(loanEntityList.size())<1){
 				userWaitingLine.add(userEntity.getUserName());
 				bookEntity.setUserWaitingLine(userWaitingLine);
@@ -119,22 +123,39 @@ public class LoanController {
 		}
 	}
 
-	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
+/*	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
 	@ResponseBody
 	public LoanDTO loanReturn(long loanId) {
 		Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
 		if (optLoanEntity.isPresent()) {
 			LoanEntity loanEntity = optLoanEntity.get();
 			BookEntity bookEntity = loanEntity.getBookEntity();
-			bookEntity.setQuantity(bookEntity.getQuantity() + 1);
-			setLoanStatus.finalStatus(loanEntity);
+			UserEntity userEntity = loanEntity.getUserEntity();
+		//	bookEntity.setQuantity(bookEntity.getQuantity() + 1);
+			// Email @Schedule --> A loanReturnInit + loanStatus Non récupéré ou --> B pad de liste d'attente --> C ...
+			//setLoanStatus.finalStatus(loanEntity);
 			bookRepository.save(bookEntity);
 			loanRepository.save(loanEntity);
 			return loanDTOAssembler.convertToDTO(loanEntity);
 		} else {
 			return null;
 		}
+	}*/
+	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
+	@ResponseBody
+	public void loanReturn (long loanId){
+		Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
+		LoanArchiveEntityBuilder archiveBuilder = new LoanArchiveEntityBuilder();
+		LoanEntity loanEntity = optLoanEntity.get();
+		BookEntity bookEntity = loanEntity.getBookEntity();
+		UserEntity userEntity = loanEntity.getUserEntity();
+		LoanArchiveEntity loanArchiveEntity = archiveBuilder.getLoanArchiveEntity(loanEntity);
+
+		if (bookEntity.getUserWaitingLine().isEmpty()){
+			loanArchiveRepository.save(loanArchiveEntity);
+			bookEntity.setStatus("disponible");
+			bookRepository.save(bookEntity);
+			loanRepository.delete(loanEntity);
+		}
 	}
-
-
 }
