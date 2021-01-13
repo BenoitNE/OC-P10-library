@@ -157,5 +157,15 @@ public class LoanController {
 			bookRepository.save(bookEntity);
 			loanRepository.delete(loanEntity);
 		}
+		if (!bookEntity.getUserWaitingLine().isEmpty()){
+			loanArchiveRepository.save(loanArchiveEntity);
+			//bookEntity.setStatus("en attente"); à mettre dans le mail avec l'API
+			//bookRepository.save(bookEntity);
+			loanRepository.delete(loanEntity);
+		}
 	}
+
+
+
+
 }

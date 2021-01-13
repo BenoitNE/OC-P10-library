@@ -1,3 +1,4 @@
+/*
 package fr.benoitne.libraryapi.facade.controller;
 
 import fr.benoitne.library.dto.LoanArchiveDTO;
@@ -26,3 +27,4 @@ public class LoanArchiveController {
                 .map(loanEntity -> loanDTOAssembler.convertToDTO(loanEntity));
     }
 }
+*/

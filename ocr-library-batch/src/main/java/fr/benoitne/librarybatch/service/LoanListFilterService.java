@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoanComparingDatesService {
+public class LoanListFilterService {
 
-	public boolean mustBeReturned(String endBorrowingDate, String prolongationDate) {
+	public boolean getLoansWhoMustBeReturned(String endBorrowingDate, String prolongationDate) {
 		LocalDateTime endDate = LocalDateTime.parse(endBorrowingDate);
 		LocalDateTime prolongDate;
 		LocalDateTime now = LocalDateTime.now();
@@ -23,6 +23,10 @@ public class LoanComparingDatesService {
 				return true;
 			}
 		}
+		return false;
+	}
+
+	public boolean getLoans48Hours(String statusBook){
 		return false;
 	}
 
