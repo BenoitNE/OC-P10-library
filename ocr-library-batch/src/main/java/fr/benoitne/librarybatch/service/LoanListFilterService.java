@@ -12,7 +12,7 @@ public class LoanListFilterService {
 		LocalDateTime prolongDate;
 		LocalDateTime now = LocalDateTime.now();
 
-		if (prolongationDate.isEmpty()) {
+		if (prolongationDate==null) {
 			if (now.compareTo(endDate) > 0) {
 				return true;
 			}
@@ -27,6 +27,9 @@ public class LoanListFilterService {
 	}
 
 	public boolean getLoans48Hours(String statusBook){
+		if (statusBook=="en attente"){
+			return true;
+		}
 		return false;
 	}
 

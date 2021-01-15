@@ -2,9 +2,10 @@
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/config/MySQLConfig.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/entity/EmailTokenEntity.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/proxy/LibraryProxy.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/service/LoanAPIConsumer.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/service/LoanListFilterService.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/config/EmailConfig.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/schedule/MailLoan48Hours.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/schedule/MailRelaunchScheduler.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/OcrLibraryApplication.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/repository/EmailTokenRepository.java
-/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/service/LoanFiltersService.java
-/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-batch/src/main/java/fr/benoitne/librarybatch/service/LoanComparingDatesService.java

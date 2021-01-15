@@ -12,7 +12,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 public class EmailConfig {
 	
 	public static final String MY_EMAIL = "benoitnerin@gmail.com";
-    public static final String MY_PASSWORD = "*************";
+    public static final String MY_PASSWORD = "Gma20061744";
 	 
 	    @Bean
 	    public JavaMailSender getJavaMailSender() {

@@ -17,18 +17,29 @@ public class LoanAPIConsumer {
 	private LibraryProxy feignProxy;
 
 	@Autowired
-	private LoanListFilterService loanComparingDates;
+	private LoanListFilterService loanListFilterService;
 
 	public Stream<LoanBean> getLoansToReturn() {
-		List<LoanBean> loanBeans = feignProxy.allLoans();
+		List<LoanBean> loanBeans = getLoanBeans();
 		return StreamSupport.stream(loanBeans.stream().spliterator(), false).filter(
-				x -> loanComparingDates.getLoansWhoMustBeReturned(x.getEndBorrowingDate(), x.getProlongationDate()) == true);
+				x -> loanListFilterService.getLoansWhoMustBeReturned(x.getEndBorrowingDate(), x.getProlongationDate()) == true);
 		
 	}
 
 	public Stream<LoanBean> getLoans48Hours(){
-		List<LoanBean> loanBeans = feignProxy.allLoans();
-		return null;
+		List<LoanBean> loanBeans = getLoanBeans();
+		return StreamSupport.stream(loanBeans.stream().spliterator(), false).filter(
+				x -> loanListFilterService.getLoans48Hours(x.getBookDTO().getStatus()) == true);
 	}
+
+	private List<LoanBean> getLoanBeans() {
+		return feignProxy.allLoans();
+	}
+
+/*	public static void main(String[] args) {
+		LoanAPIConsumer loanAPIConsumer = new LoanAPIConsumer();
+		Stream<LoanBean> loanBeanStream = loanAPIConsumer.getLoans48Hours();
+		loanBeanStream.map(x -> x.getBookDTO()).forEach(System.out::println);
+	}*/
 
 }

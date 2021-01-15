@@ -4,6 +4,7 @@
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/facade/assembler/UserDTOAssembler.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/CustomizedUserRepository.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/facade/controller/BookController.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/facade/controller/LoanArchiveController.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/service/SetLoanStatus.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/service/LoanDateManagement.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/CustomizedLoanArchiveRepositoryImpl.java

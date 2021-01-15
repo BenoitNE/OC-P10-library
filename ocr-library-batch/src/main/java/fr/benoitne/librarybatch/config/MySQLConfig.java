@@ -32,7 +32,7 @@ public class MySQLConfig {
 	    dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 	    dataSource.setUrl("jdbc:mysql://localhost:3306/emailtoken_db");
 	    dataSource.setUsername( "root" );
-	    dataSource.setPassword( "" );
+	    dataSource.setPassword( "root" );
 	    return dataSource;
 	}
 

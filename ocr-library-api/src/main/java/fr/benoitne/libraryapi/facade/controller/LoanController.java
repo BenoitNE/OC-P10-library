@@ -159,8 +159,8 @@ public class LoanController {
 		}
 		if (!bookEntity.getUserWaitingLine().isEmpty()){
 			loanArchiveRepository.save(loanArchiveEntity);
-			//bookEntity.setStatus("en attente"); à mettre dans le mail avec l'API
-			//bookRepository.save(bookEntity);
+			bookEntity.setStatus("en attente");
+			bookRepository.save(bookEntity);
 			loanRepository.delete(loanEntity);
 		}
 	}
