@@ -44,4 +44,7 @@ public interface LibraryProxy {
 	@ResponseBody
 	public LoanBean newLoan(@RequestParam(value = "userId") long userId, @RequestParam(value = "bookId") long bookId);
 
+	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
+	@ResponseBody
+	public void loanReturn (@RequestParam(value = "loanId")long loanId);
 }

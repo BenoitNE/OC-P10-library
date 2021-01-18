@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.benoitne.libraryweb.bean.LoanBean;
 import fr.benoitne.libraryweb.proxy.LibraryProxy;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoanController {
@@ -52,5 +53,12 @@ public class LoanController {
 		feignProxy.newLoan(userBean.getId(),bookId);
 		return goToLoans(model, request);
 	}
+
+	@GetMapping(value = "/loan/{loanId}/return")
+	public String removeLoan (@PathVariable(value = "loanId") long loanId, Model model, HttpServletRequest request){
+		feignProxy.loanReturn(loanId);
+		return goToLoans(model, request);
+	}
+
 
 }

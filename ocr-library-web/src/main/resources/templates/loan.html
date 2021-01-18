@@ -45,7 +45,7 @@
 						th:if="${loans.status!='Livre rendu'}">
 
 						<div class="box" style="text-align: center;">
-							<a th:href=@{/loan/{bookId}/add(bookId=${book.id})>
+							<a th:href="@{/user/book-search(search=${loans.bookDTO.title})}">
 							<img class="rounded-circle" th:src="${loans.bookDTO.imageLink}">
 							<h3 class="name">
 								<td th:text="${loans.bookDTO.title}" />
@@ -57,7 +57,7 @@
 							<p class="description">Date de début de prêt:</p>
 							<label><td th:text="${loans.startBorrowingDate}" /></label>
 							<p class="description">Date de fin de prêt:</p>
-							<label th:if="${loans.status=='En cours de prêt'}"><strong><td
+							<label th:if="${loans.status=='En cours ou demande de prêt'}"><strong><td
 									th:text="${loans.endBorrowingDate}" /></strong></label> <label
 								th:if="${loans.status=='Prêt prolongé'}"><strong><td
 									th:text="${loans.prolongationDate}" /></strong></label>
@@ -73,7 +73,11 @@
 										th:href=@{/user/loan/{loanId}/extendDate(loanId=${loans.id})}>
 										Prolonger le prêt</a>
 								</button>
+
 							</p>
+							<label>
+							<i><a th:href="@{/loan/{loanId}/return(loanId=${loans.id})}">Annuler la réservation</a></i>
+							</label>
 							</td>
 						</div>
 
