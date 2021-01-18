@@ -33,11 +33,11 @@ public class LoanAPIConsumer {
 				x -> loanListFilterService.getLoans48Hours(x.getBookDTO().getStatus()) == true);
 	}
 
-/*	public Optional <LoanBean> getLoan48HWaitingOptional (){
-		Stream<LoanBean> loanBeans = getLoans48HoursStream();
-		Optional<LoanBean> loanBean = loanBeans.findFirst();
-		return loanBean;
-	}*/
+	public Stream<LoanBean> getLoans48HoursStreamRemove(){
+		List<LoanBean> loanBeans = getLoanBeans();
+		return StreamSupport.stream(loanBeans.stream().spliterator(), false).filter(
+				x -> loanListFilterService.getLoans48HoursToRemove(x.getBookDTO().getStatus(), x.getWaiting48HDate()) == true);
+	}
 
 	private List<LoanBean> getLoanBeans() {
 		return feignProxy.allLoans();
@@ -46,5 +46,11 @@ public class LoanAPIConsumer {
 	public void getWaitingLine48HInit (long loanId){
 		feignProxy.waitingLine48HInit(loanId);
 	}
+	
+	public void removeWaitingLoan48H (long loanId){
+		feignProxy.loanReturn(loanId);
+	}
+
+
 
 }

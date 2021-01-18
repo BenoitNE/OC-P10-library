@@ -33,12 +33,18 @@ public class LoanListFilterService {
 		return false;
 	}
 
-//	public static void main(String[] args) {
-//
-//		LoanComparingDates compareDates = new LoanComparingDates();
-//		boolean output = compareDates.mustBeReturned("2020-08-27T16:43:21.450", null);
-//
-//		System.out.println(output);
-//
-//	}
+	public boolean getLoans48HoursToRemove(String statusBook, String waiting48HDate){
+		waiting48HDate ="2020-10-31T17:55:20.180";
+		if(waiting48HDate!=null) {
+		LocalDateTime end48HDate = LocalDateTime.parse(waiting48HDate);
+		LocalDateTime now = LocalDateTime.now();
+
+
+			if (statusBook.equals("en attente 48h") && now.compareTo(end48HDate) > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

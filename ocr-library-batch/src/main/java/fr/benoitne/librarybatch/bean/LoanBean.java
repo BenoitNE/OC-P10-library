@@ -22,6 +22,8 @@ public class LoanBean {
 
 	private BookDTO bookDTO;
 
+	private String waiting48HDate;
+
 	public LoanBean() {
 		super();
 	}
@@ -80,6 +82,14 @@ public class LoanBean {
 
 	public void setBookDTO(BookDTO bookDTO) {
 		this.bookDTO = bookDTO;
+	}
+
+	public String getWaiting48HDate() {
+		return waiting48HDate;
+	}
+
+	public void setWaiting48HDate(String waiting48HDate) {
+		this.waiting48HDate = waiting48HDate;
 	}
 
 	@Override

@@ -122,25 +122,6 @@ public class LoanController {
 			return loanEntity;
 		}
 
-
-/*	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
-	@ResponseBody
-	public LoanDTO loanReturn(long loanId) {
-		Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
-		if (optLoanEntity.isPresent()) {
-			LoanEntity loanEntity = optLoanEntity.get();
-			BookEntity bookEntity = loanEntity.getBookEntity();
-			UserEntity userEntity = loanEntity.getUserEntity();
-		//	bookEntity.setQuantity(bookEntity.getQuantity() + 1);
-			// Email @Schedule --> A loanReturnInit + loanStatus Non récupéré ou --> B pad de liste d'attente --> C ...
-			//setLoanStatus.finalStatus(loanEntity);
-			bookRepository.save(bookEntity);
-			loanRepository.save(loanEntity);
-			return loanDTOAssembler.convertToDTO(loanEntity);
-		} else {
-			return null;
-		}
-	}*/
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
 	@ResponseBody
 	public void loanReturn (long loanId){
@@ -151,18 +132,21 @@ public class LoanController {
 		UserEntity userEntity = loanEntity.getUserEntity();
 		LoanArchiveEntity loanArchiveEntity = archiveBuilder.getLoanArchiveEntity(loanEntity);
 
-		if (bookEntity.getUserWaitingLine().isEmpty()){
-			loanArchiveRepository.save(loanArchiveEntity);
-			bookEntity.setStatus("disponible");
-			bookRepository.save(bookEntity);
-			loanRepository.delete(loanEntity);
-		}
 		if (!bookEntity.getUserWaitingLine().isEmpty()){
 			loanArchiveRepository.save(loanArchiveEntity);
 			bookEntity.setStatus("en attente NC");
-			bookRepository.save(bookEntity);
-			loanRepository.delete(loanEntity);
+
+			if (loanEntity.getWaiting48HDate()!=null){
+				bookEntity.getUserWaitingLine().remove(0);
+			}
 		}
+
+		if (bookEntity.getUserWaitingLine().isEmpty()){
+			loanArchiveRepository.save(loanArchiveEntity);
+			bookEntity.setStatus("disponible");
+		}
+		bookRepository.save(bookEntity);
+		loanRepository.delete(loanEntity);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting")
@@ -174,8 +158,6 @@ public class LoanController {
 	loanEntity.setWaiting48HDate(loanDateManagement.get48HWaitingDate());
 	loanRepository.save(loanEntity);
 	}
-
-
 
 
 }

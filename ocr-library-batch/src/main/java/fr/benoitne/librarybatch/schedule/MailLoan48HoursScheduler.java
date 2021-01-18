@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class MailLoan48Hours {
+public class MailLoan48HoursScheduler {
 
     @Autowired
     LoanAPIConsumer loanFilters;

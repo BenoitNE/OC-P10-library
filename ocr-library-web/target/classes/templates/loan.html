@@ -43,6 +43,7 @@
 				<tr th:each="loans: ${loanBeans}">
 					<div class="col-md-6 col-lg-4 item"
 						th:if="${loans.status!='Livre rendu'}">
+						<a href="/home.html">
 						<div class="box" style="text-align: center;">
 							<img class="rounded-circle" th:src="${loans.bookDTO.imageLink}">
 							<h3 class="name">
@@ -73,6 +74,7 @@
 							</p>
 							</td>
 						</div>
+						</a>
 					</div>
 
 				</tr>

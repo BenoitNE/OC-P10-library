@@ -23,4 +23,8 @@ public interface LibraryProxy {
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting")
 	@ResponseBody
 	public void waitingLine48HInit (@RequestParam(value = "loanId") long loanId);
+
+	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
+	@ResponseBody
+	public void loanReturn (@RequestParam(value = "loanId") long loanId);
 }
