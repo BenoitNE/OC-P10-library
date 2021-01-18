@@ -39,7 +39,6 @@ public class BookEntity {
 
 	private int quantity;
 
-
 	@Column(length = 2000)
 	private String summary;
 
@@ -53,6 +52,7 @@ public class BookEntity {
 	@Column
 	@ElementCollection(targetClass=String.class)
 	private List <String> userWaitingLine;
+
 
 	public BookEntity() {
 		super();
@@ -162,11 +162,5 @@ public class BookEntity {
 		this.userWaitingLine = userWaitingLine;
 	}
 
-	//	@Override
-//	public String toString() {
-//		return "BookEntity [id=" + id + ", title=" + title + ", author=" + author + ", pageNumber=" + pageNumber
-//				+ ", type=" + type + ", publishing=" + publishing + ", status=" + status + ", imageLink=" + imageLink
-//				+ ", summary=" + summary + ", loanEntity=" + loanEntity + ", libraryEntity=" + libraryEntity + "]";
-//	}
 
 }

@@ -16,6 +16,8 @@ public class LoanDTO {
 
 	private BookDTO bookDTO;
 
+	private String waiting48HDate;
+
 	public long getId() {
 		return id;
 	}
@@ -72,4 +74,11 @@ public class LoanDTO {
 		this.status = status;
 	}
 
+	public String getWaiting48HDate() {
+		return waiting48HDate;
+	}
+
+	public void setWaiting48HDate(String waiting48HDate) {
+		this.waiting48HDate = waiting48HDate;
+	}
 }

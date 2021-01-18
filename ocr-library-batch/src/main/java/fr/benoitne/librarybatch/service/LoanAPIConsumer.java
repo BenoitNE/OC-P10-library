@@ -1,6 +1,7 @@
 package fr.benoitne.librarybatch.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -26,20 +27,24 @@ public class LoanAPIConsumer {
 		
 	}
 
-	public Stream<LoanBean> getLoans48Hours(){
+	public Stream<LoanBean> getLoans48HoursStream(){
 		List<LoanBean> loanBeans = getLoanBeans();
 		return StreamSupport.stream(loanBeans.stream().spliterator(), false).filter(
 				x -> loanListFilterService.getLoans48Hours(x.getBookDTO().getStatus()) == true);
 	}
 
+/*	public Optional <LoanBean> getLoan48HWaitingOptional (){
+		Stream<LoanBean> loanBeans = getLoans48HoursStream();
+		Optional<LoanBean> loanBean = loanBeans.findFirst();
+		return loanBean;
+	}*/
+
 	private List<LoanBean> getLoanBeans() {
 		return feignProxy.allLoans();
 	}
 
-/*	public static void main(String[] args) {
-		LoanAPIConsumer loanAPIConsumer = new LoanAPIConsumer();
-		Stream<LoanBean> loanBeanStream = loanAPIConsumer.getLoans48Hours();
-		loanBeanStream.map(x -> x.getBookDTO()).forEach(System.out::println);
-	}*/
+	public void getWaitingLine48HInit (long loanId){
+		feignProxy.waitingLine48HInit(loanId);
+	}
 
 }

@@ -24,6 +24,7 @@ public class LoanDTOAssembler {
 		loanDTO.setProlongationDate(loanEntity.getProlongationDate());
 		loanDTO.setUserDTO(userDTOAssembler.convertToDTO(loanEntity.getUserEntity()));
 		loanDTO.setBookDTO(bookDTOAssembler.convertToDTO(loanEntity.getBookEntity()));
+		loanDTO.setWaiting48HDate(loanEntity.getWaiting48HDate());
 		return loanDTO;
 	}
 
@@ -36,6 +37,7 @@ public class LoanDTOAssembler {
 		loanEntity.setProlongationDate(loanDTO.getProlongationDate());
 		loanEntity.setUserEntity(userDTOAssembler.convertToEntity(loanDTO.getUserDTO()));
 		loanEntity.setBookEntity(bookDTOAssembler.convertToEntity(loanDTO.getBookDTO()));
+		loanEntity.setWaiting48HDate(loanDTO.getWaiting48HDate());
 		return loanEntity;
 	}
 

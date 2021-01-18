@@ -34,6 +34,8 @@ public class LoanEntity {
 	@JoinColumn(name = "bookEntity_id")
 	private BookEntity bookEntity;
 
+	private String waiting48HDate;
+
 	public LoanEntity() {
 		super();
 	}
@@ -94,4 +96,11 @@ public class LoanEntity {
 		this.status = status;
 	}
 
+	public String getWaiting48HDate() {
+		return waiting48HDate;
+	}
+
+	public void setWaiting48HDate(String waiting48HDate) {
+		this.waiting48HDate = waiting48HDate;
+	}
 }

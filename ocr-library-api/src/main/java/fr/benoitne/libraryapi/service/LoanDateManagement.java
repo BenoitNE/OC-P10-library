@@ -33,4 +33,9 @@ public class LoanDateManagement {
 		return dateTime.toString();
 	}
 
+	public String get48HWaitingDate () {
+		LocalDateTime dateTime = LocalDateTime.parse(getStartBorrowingDate()).plusDays(2);
+		return dateTime.toString();
+	}
+
 }

@@ -27,7 +27,7 @@ public class LoanListFilterService {
 	}
 
 	public boolean getLoans48Hours(String statusBook){
-		if (statusBook.equals("en attente")){
+		if (statusBook.equals("en attente NC")){
 			return true;
 		}
 		return false;

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class MailLoan48Hours {
@@ -27,6 +26,9 @@ public class MailLoan48Hours {
     @Autowired
     public JavaMailSender emailSender;
 
+    @Autowired
+    public LoanAPIConsumer loanAPIConsumer;
+
     @Scheduled(cron = "*/10 * * * * *")
 //	@Scheduled(cron = "0 0 8 * * *")
     /*
@@ -35,11 +37,13 @@ public class MailLoan48Hours {
     public void sendEmailLoan48Hours() {
 
         SimpleMailMessage message = new SimpleMailMessage();
-        List<LoanBean> loanBeans = loanFilters.getLoans48Hours().collect(Collectors.toList());
+        List<LoanBean> loanBeans = loanFilters.getLoans48HoursStream().collect(Collectors.toList());
 
         for (LoanBean loanbean : loanBeans) {
-
-            email(message, loanbean);
+            if (loanbean.getUserDTO().getUserName().equals(loanbean.getBookDTO().getUserWaitingLine().get(0))){
+                email(message, loanbean);
+                loanAPIConsumer.getWaitingLine48HInit(loanbean.getId());
+            }
         }
     }
 
@@ -57,6 +61,7 @@ public class MailLoan48Hours {
 
             this.emailSender.send(message);
         }
+
     }
 
 

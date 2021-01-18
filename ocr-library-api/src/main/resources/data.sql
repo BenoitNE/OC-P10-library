@@ -6,7 +6,7 @@ INSERT INTO LIBRARY_ENTITY (ID, ADRESS, NAME, EMAIL, PHONE_NUMBER) VALUES (1,'2 
 
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 /*BOOK_ENTITY*/
-INSERT INTO BOOK_ENTITY (ID, QUANTITY, AUTHOR, IMAGE_LINK, PAGE_NUMBER, PUBLISHING, STATUS, TITLE, TYPE, LIBRARY_ENTITY_ID, SUMMARY) VALUES (1, 4,'Thibault Geoffray','https://zupimages.net/up/20/40/sfns.jpg',176,'Marabout','disponible','Mes recettes healthy #2','Santé',1,'Mincir grâce aux 80 nouvelles recettes de Thibault Geoffray, le coach sportif n°1 d’Instagram ! Des recettes toujours aussi simples, rapides et délicieuses et toutes les clés pour transformer sa silhouette tout en prenant soin de sa santé !
+INSERT INTO BOOK_ENTITY (ID, QUANTITY, AUTHOR, IMAGE_LINK, PAGE_NUMBER, PUBLISHING, STATUS, TITLE, TYPE, LIBRARY_ENTITY_ID, SUMMARY) VALUES (1, 1,'Thibault Geoffray','https://zupimages.net/up/20/40/sfns.jpg',176,'Marabout','disponible','Mes recettes healthy #2','Santé',1,'Mincir grâce aux 80 nouvelles recettes de Thibault Geoffray, le coach sportif n°1 d’Instagram ! Des recettes toujours aussi simples, rapides et délicieuses et toutes les clés pour transformer sa silhouette tout en prenant soin de sa santé !
 	Toasts de patate douce et œuf poché, mini burgers thon courgette, bowl veggie quinoa, douceurs glacées au peanut butter ou smoothie purple… Le secret de ses recettes ? Ultra faciles, peu d’ingrédients (seulement les meilleurs) avec une place toujours essentielle donnée aux fruits et légumes !
 	Grâce à ce nouveau livre de Thibault Geoffray, commencez ou continuez votre prise en main tout en vous régalant sans jamais vous priver !');
 

@@ -159,10 +159,20 @@ public class LoanController {
 		}
 		if (!bookEntity.getUserWaitingLine().isEmpty()){
 			loanArchiveRepository.save(loanArchiveEntity);
-			bookEntity.setStatus("en attente");
+			bookEntity.setStatus("en attente NC");
 			bookRepository.save(bookEntity);
 			loanRepository.delete(loanEntity);
 		}
+	}
+
+	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting")
+	@ResponseBody
+	public void waitingLine48HInit (Long loanId){
+		Optional<LoanEntity> loanEntityOptional = loanRepository.findById(loanId);
+		LoanEntity loanEntity = loanEntityOptional.get();
+		loanEntity.getBookEntity().setStatus("en attente 48h");
+	loanEntity.setWaiting48HDate(loanDateManagement.get48HWaitingDate());
+	loanRepository.save(loanEntity);
 	}
 
 

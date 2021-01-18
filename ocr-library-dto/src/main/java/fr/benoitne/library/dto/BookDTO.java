@@ -31,6 +31,7 @@ public class BookDTO {
 
 	private List<String> userLoanList;
 
+
 	public long getId() {
 		return id;
 	}
@@ -134,4 +135,6 @@ public class BookDTO {
 	public void setUserLoanList(List<String> userLoanList) {
 		this.userLoanList = userLoanList;
 	}
+
+
 }
