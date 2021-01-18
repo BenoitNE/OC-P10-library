@@ -17,7 +17,7 @@ public class LoanListFilterService {
 				return true;
 			}
 		}
-		if (!prolongationDate.isEmpty()) {
+		if (prolongationDate!=null) {
 			prolongDate = LocalDateTime.parse(prolongationDate);
 			if (now.compareTo(prolongDate) > 0) {
 				return true;
@@ -27,7 +27,7 @@ public class LoanListFilterService {
 	}
 
 	public boolean getLoans48Hours(String statusBook){
-		if (statusBook=="en attente"){
+		if (statusBook.equals("en attente")){
 			return true;
 		}
 		return false;

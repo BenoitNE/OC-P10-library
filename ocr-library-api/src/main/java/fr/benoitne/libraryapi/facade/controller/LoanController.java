@@ -105,23 +105,23 @@ public class LoanController {
 			loanEntity.setUserEntity(userEntity);
 			setLoanStatus.initialStatus(loanEntity);
 
-			if ((bookEntity.getQuantity())-(loanEntityList.size())<1){
+
+			if ((bookEntity.getQuantity()) - (loanEntityList.size()) < 1) {
 				userWaitingLine.add(userEntity.getUserName());
 				bookEntity.setUserWaitingLine(userWaitingLine);
+
 			}
 
-			if ((bookEntity.getQuantity())-(loanEntityList.size())<=1){
+			if ((bookEntity.getQuantity()) - (loanEntityList.size()) <= 1) {
 				bookEntity.setStatus("indisponible");
 			}
-
+		}
 			bookRepository.save(bookEntity);
 			loanRepository.save(loanEntity);
 
 			return loanEntity;
-		} else {
-			return null;
 		}
-	}
+
 
 /*	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
 	@ResponseBody

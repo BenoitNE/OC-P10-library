@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="userWaitingListEmptyVerification" th:if="${!book.userWaitingLine.empty}">
                                 <div class="placeList" th:if="${(book.userWaitingLine.contains(session.userName))==true}">
-                                    <i>Vous êtes au rang <strong><td th:text="${(book.userWaitingLine.indexOf(session.userName))+1}"/></strong> de la liste d'attente.</i>
+                                    Vous êtes au rang <strong><td th:text="${(book.userWaitingLine.indexOf(session.userName))+1}"/></strong> de la liste d'attente.
                                 </div>
                                 </div>
                                 <br>
