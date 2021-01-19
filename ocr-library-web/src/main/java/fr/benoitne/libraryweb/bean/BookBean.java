@@ -1,6 +1,9 @@
 package fr.benoitne.libraryweb.bean;
 
 
+import fr.benoitne.library.dto.LoanDTO;
+import fr.benoitne.libraryweb.service.DateTool;
+
 import java.util.List;
 
 public class BookBean {
@@ -30,6 +33,8 @@ public class BookBean {
 	private List<String> userWaitingLine;
 
 	private List<String> userLoanList;
+
+	private String returnDate;
 	
 	public BookBean() {
 		super();
@@ -137,6 +142,15 @@ public class BookBean {
 
 	public void setUserLoanList(List<String> userLoanList) {
 		this.userLoanList = userLoanList;
+	}
+
+	public String getReturnDate() {
+		DateTool dateTool = new DateTool();
+		return dateTool.convert(returnDate);
+	}
+
+	public void setReturnDate(String returnDate) {
+		this.returnDate = returnDate;
 	}
 
 	@Override

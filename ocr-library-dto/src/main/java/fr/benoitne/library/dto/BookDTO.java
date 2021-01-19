@@ -1,6 +1,5 @@
 package fr.benoitne.library.dto;
 
-
 import java.util.List;
 
 public class BookDTO {
@@ -31,6 +30,7 @@ public class BookDTO {
 
 	private List<String> userLoanList;
 
+	private String returnDate;
 
 	public long getId() {
 		return id;
@@ -136,5 +136,11 @@ public class BookDTO {
 		this.userLoanList = userLoanList;
 	}
 
+	public String getReturnDate() {
+		return returnDate;
+	}
 
+	public void setReturnDate(String returnDate) {
+		this.returnDate = returnDate;
+	}
 }
