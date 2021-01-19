@@ -7,6 +7,7 @@
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/facade/controller/LoanArchiveController.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/service/SetLoanStatus.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/service/LoanDateManagement.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/entity/ReservationRequestEntity.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/CustomizedLoanArchiveRepositoryImpl.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/CustomizedLoanArchiveRepository.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/exeption/InternalServerErrorException.java
@@ -28,5 +29,6 @@
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/CustomizedBookRepository.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/entity/LoanEntity.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/facade/assembler/BookDTOAssembler.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/ReservationRequestRepository.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/OcrLibraryApplication.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/SandBox.java

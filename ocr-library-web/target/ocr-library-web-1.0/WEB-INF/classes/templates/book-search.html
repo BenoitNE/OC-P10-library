@@ -82,9 +82,10 @@
                                     <li><p><td th:text="${book.status}" /></p></li>
                                     <li><p th:if="${(book.quantity-(#lists.size(book.userLoanList)))>=0}">quantité de disponible:
                                             <td th:text="${book.quantity-(#lists.size(book.userLoanList))}" /> </p>
-                                        <p th:if="${(book.quantity-(#lists.size(book.userLoanList)))<0}"> quantité de disponible: 0 </p>
+                                        <p th:if="${(book.quantity-(#lists.size(book.userLoanList)))<0}"> quantité de disponible: 0 </p></li>
 
-                                    </li>
+                                      <li th:if="${(book.quantity-(#lists.size(book.userLoanList)))<=0}"> <p> Date de retour: <td th:text="${book.returnDate}"/>  </p>
+                                      </li>
                                 </ul>
                             </div>
                         </div>
@@ -113,6 +114,13 @@
                                     <label style="margin-left:7px;" class="alert alert-dark" th:if="${book.status=='indisponible'}">
                                         <u>Vous ne pouvez pas réaliser de réservation actuellement</u> <strong>Liste d'attente: </strong>  <td th:text="${#lists.size(book.userWaitingLine)}"/>/<td th:text="${book.quantity*2}"></td>
                                     </label>
+                                </div>
+                                <div class="userWaitingListEmptyVerification" th:if="${!book.userWaitingLine.empty}">
+                                <div class="placeList" th:if="${(book.userWaitingLine.contains(session.userName))==true}">
+                                    Vous êtes au rang <strong><td th:text="${(book.userWaitingLine.indexOf(session.userName))+1}"/></strong> de la liste d'attente.
+                                    <br>
+                                    Prochaine date de retour prévue: <td th:text="${book.returnDate}"/>
+                                </div>
                                 </div>
                                 <br>
                                 <br>

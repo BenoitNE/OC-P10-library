@@ -1,6 +1,7 @@
 fr/benoitne/libraryapi/exeption/InternalServerErrorException.class
 fr/benoitne/libraryapi/service/LoanDateManagement.class
 fr/benoitne/libraryapi/persistence/repository/CustomizedLoanrepositoryImpl.class
+fr/benoitne/libraryapi/persistence/entity/ReservationRequestEntity.class
 fr/benoitne/libraryapi/persistence/entity/LibraryEntity.class
 fr/benoitne/libraryapi/facade/assembler/UserDTOAssembler.class
 fr/benoitne/libraryapi/persistence/entity/BookEntity.class
@@ -11,6 +12,7 @@ fr/benoitne/libraryapi/persistence/repository/UserRepository.class
 fr/benoitne/libraryapi/persistence/repository/BookRepository.class
 fr/benoitne/libraryapi/persistence/repository/CustomizedBookRepository.class
 fr/benoitne/libraryapi/facade/assembler/LoanDTOAssembler.class
+fr/benoitne/libraryapi/persistence/repository/ReservationRequestRepository.class
 fr/benoitne/libraryapi/persistence/entity/UserEntity.class
 fr/benoitne/libraryapi/persistence/repository/CustomizedUserRepository.class
 fr/benoitne/libraryapi/persistence/entity/LoanArchiveEntity.class

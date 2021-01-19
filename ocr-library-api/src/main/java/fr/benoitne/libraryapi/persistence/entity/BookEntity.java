@@ -53,6 +53,9 @@ public class BookEntity {
 	@ElementCollection(targetClass=String.class)
 	private List <String> userWaitingLine;
 
+	@OneToMany(mappedBy = "bookEntity", fetch = FetchType.LAZY)
+	private List<ReservationRequestEntity> reservationRequestEntities;
+
 
 	public BookEntity() {
 		super();
@@ -162,5 +165,11 @@ public class BookEntity {
 		this.userWaitingLine = userWaitingLine;
 	}
 
+	public List<ReservationRequestEntity> getReservationRequestEntities() {
+		return reservationRequestEntities;
+	}
 
+	public void setReservationRequestEntities(List<ReservationRequestEntity> reservationRequestEntities) {
+		this.reservationRequestEntities = reservationRequestEntities;
+	}
 }

@@ -39,6 +39,9 @@ public class UserEntity {
 	@OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
 	private List<LoanEntity> loanEntity;
 
+	@OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
+	private List<ReservationRequestEntity> reservationRequestEntities;
+
 	public UserEntity() {
 		super();
 	}
@@ -123,6 +126,11 @@ public class UserEntity {
 		this.role = role;
 	}
 
-	
-	
+	public List<ReservationRequestEntity> getReservationRequestEntities() {
+		return reservationRequestEntities;
+	}
+
+	public void setReservationRequestEntities(List<ReservationRequestEntity> reservationRequestEntities) {
+		this.reservationRequestEntities = reservationRequestEntities;
+	}
 }

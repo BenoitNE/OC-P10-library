@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import fr.benoitne.libraryapi.facade.assembler.LoanArchiveEntityBuilder;
-import fr.benoitne.libraryapi.persistence.entity.LoanArchiveEntity;
-import fr.benoitne.libraryapi.persistence.repository.LoanArchiveRepository;
+import fr.benoitne.libraryapi.persistence.entity.*;
+import fr.benoitne.libraryapi.persistence.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fr.benoitne.library.dto.LoanDTO;
 import fr.benoitne.libraryapi.facade.assembler.LoanDTOAssembler;
-import fr.benoitne.libraryapi.persistence.entity.BookEntity;
-import fr.benoitne.libraryapi.persistence.entity.LoanEntity;
-import fr.benoitne.libraryapi.persistence.entity.UserEntity;
-import fr.benoitne.libraryapi.persistence.repository.BookRepository;
-import fr.benoitne.libraryapi.persistence.repository.LoanRepository;
-import fr.benoitne.libraryapi.persistence.repository.UserRepository;
 import fr.benoitne.libraryapi.service.LoanDateManagement;
 import fr.benoitne.libraryapi.service.SetLoanStatus;
 
@@ -50,6 +44,9 @@ public class LoanController {
 
 	@Autowired
 	LoanDateManagement loanDateManagement;
+
+	@Autowired
+	ReservationRequestRepository reservationRequestRepository;
 	
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/loan")
@@ -89,12 +86,14 @@ public class LoanController {
 
 	private LoanEntity add(long userId, long bookId) {
 		LoanEntity loanEntity = new LoanEntity();
+		ReservationRequestEntity reservationRequestEntity = new ReservationRequestEntity();
 		Optional<BookEntity> optBookEntity = bookRepository.findById(bookId);
 		Optional<UserEntity> optUserEntity = userRepository.findById(userId);
 		BookEntity bookEntity = optBookEntity.get();
 		UserEntity userEntity = optUserEntity.get();
 		List<LoanEntity> loanEntityList = bookEntity.getLoanEntity();
 		List<String> userWaitingLine = bookEntity.getUserWaitingLine();
+		List<ReservationRequestEntity> reservationRequestEntities = bookEntity.getReservationRequestEntities();
 
 		if (optBookEntity.isPresent() && optUserEntity.isPresent()) {
 			List<LoanEntity> loanEntities = (List<LoanEntity>) loanRepository.findAll();
@@ -109,6 +108,11 @@ public class LoanController {
 			if ((bookEntity.getQuantity()) - (loanEntityList.size()) < 1) {
 				userWaitingLine.add(userEntity.getUserName());
 				bookEntity.setUserWaitingLine(userWaitingLine);
+				reservationRequestEntity.setId(reservationRequestEntities.size()+1);
+				reservationRequestEntity.setStatus("Demande de réservation en cours");
+				reservationRequestEntity.setBookEntity(bookEntity);
+				reservationRequestEntity.setUserEntity(userEntity);
+				reservationRequestRepository.save(reservationRequestEntity);
 
 			}
 
@@ -117,6 +121,9 @@ public class LoanController {
 			}
 		}
 			bookRepository.save(bookEntity);
+
+
+		if(bookEntity.getUserWaitingLine().isEmpty())
 			loanRepository.save(loanEntity);
 
 			return loanEntity;
