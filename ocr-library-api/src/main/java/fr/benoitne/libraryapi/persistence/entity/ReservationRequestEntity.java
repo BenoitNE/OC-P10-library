@@ -13,6 +13,8 @@ public class ReservationRequestEntity {
 
     private String status;
 
+    private String startingDate;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userEntity_id")
     private UserEntity userEntity;
@@ -55,5 +57,13 @@ public class ReservationRequestEntity {
 
     public void setBookEntity(BookEntity bookEntity) {
         this.bookEntity = bookEntity;
+    }
+
+    public String getStartingDate() {
+        return startingDate;
+    }
+
+    public void setStartingDate(String startingDate) {
+        this.startingDate = startingDate;
     }
 }

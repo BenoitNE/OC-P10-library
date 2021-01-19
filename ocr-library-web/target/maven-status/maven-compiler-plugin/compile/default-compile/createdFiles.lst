@@ -1,3 +1,4 @@
+fr/benoitne/libraryweb/bean/ReservationRequestBean.class
 fr/benoitne/libraryweb/controller/BookController.class
 fr/benoitne/libraryweb/OcrLibraryApplication.class
 fr/benoitne/libraryweb/security/WebSecurityConfiguration.class
@@ -6,6 +7,7 @@ fr/benoitne/libraryweb/controller/UserController.class
 fr/benoitne/libraryweb/controller/LoanController.class
 fr/benoitne/libraryweb/proxy/LibraryProxy.class
 fr/benoitne/libraryweb/bean/LibraryBean.class
+fr/benoitne/libraryweb/controller/ReservationrequestController.class
 fr/benoitne/libraryweb/security/SpringUserDetailsService.class
 fr/benoitne/libraryweb/bean/BookBean.class
 fr/benoitne/libraryweb/bean/UserBean.class

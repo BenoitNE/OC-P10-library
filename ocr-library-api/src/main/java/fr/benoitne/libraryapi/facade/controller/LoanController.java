@@ -112,6 +112,7 @@ public class LoanController {
 				reservationRequestEntity.setStatus("Demande de réservation en cours");
 				reservationRequestEntity.setBookEntity(bookEntity);
 				reservationRequestEntity.setUserEntity(userEntity);
+				reservationRequestEntity.setStartingDate(loanDateManagement.getStartBorrowingDate());
 				reservationRequestRepository.save(reservationRequestEntity);
 
 			}

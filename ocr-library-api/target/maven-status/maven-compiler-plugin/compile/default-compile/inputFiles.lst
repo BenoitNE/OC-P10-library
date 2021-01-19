@@ -12,6 +12,7 @@
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/CustomizedLoanArchiveRepository.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/exeption/InternalServerErrorException.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/entity/LibraryEntity.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/facade/assembler/ReservationrequestDTOAssembler.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/facade/assembler/LibraryDTOAssembler.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/CustomizedLoanRepository.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/CustomizedLoanrepositoryImpl.java
@@ -31,4 +32,5 @@
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/facade/assembler/BookDTOAssembler.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/persistence/repository/ReservationRequestRepository.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/OcrLibraryApplication.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/facade/controller/ReservationRequestController.java
 /home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-api/src/main/java/fr/benoitne/libraryapi/SandBox.java

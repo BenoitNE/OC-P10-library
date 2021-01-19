@@ -6,6 +6,8 @@ public class ReservationRequestDTO {
 
         private String status;
 
+        private String startingDate;
+
         private UserDTO userDTO;
 
         private BookDTO bookDTO;
@@ -40,5 +42,13 @@ public class ReservationRequestDTO {
 
     public void setBookDTO(BookDTO bookDTO) {
         this.bookDTO = bookDTO;
+    }
+
+    public String getStartingDate() {
+        return startingDate;
+    }
+
+    public void setStartingDate(String startingDate) {
+        this.startingDate = startingDate;
     }
 }

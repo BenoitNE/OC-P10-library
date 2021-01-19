@@ -65,10 +65,28 @@
                                     class="nav-link active" role="tab" data-toggle="tab"
                                     href="#tab-1">Mes prêts</a></li>
                             </ul>
-                            
+
+                            <div class="tab-content">
+                                <tr th:each="reservations: ${reservations}">
+                                    <div class="tab-pane active lock" role="tabpanel" id="tab-1">
+                                        <ul class="thread-list">
+                                            <li class="thread"><span class="time" style="width: 83px;"><td
+                                                    th:text="${reservations.startingDate}" /></span>
+                                                <span class="title"><td th:text="${reservations.bookDTO.title}" />&nbsp;</span>
+                                                <span class="title" style="font-size: 16px;">de <td th:text="${reservations.bookDTO.author}" /></span>
+                                                <span class="icon" style="filter: brightness(102%) contrast(97%) grayscale(33%) saturate(80%); color: #212529;">
+                                                <a class="subscribe" href="javascript:void(0)">
+                                                    <label style="font-size: 16px;"><td th:text="${reservations.status}" /></label></a>
+                                                    <a class="flag" href="javascript:void(0)"></a></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </tr>
+                            </div>
+
                             <div class="tab-content">
                             <tr th:each="loan: ${loanBeans}">
-                                <div class="tab-pane active" role="tabpanel" id="tab-1">
+                                <div class="tab-pane active" role="tabpanel" id="tab-2">
                                     <ul class="thread-list">
                                         <li class="thread"><span class="time" style="width: 83px;"><td
                                             th:text="${loan.startBorrowingDate}" /></span><span
