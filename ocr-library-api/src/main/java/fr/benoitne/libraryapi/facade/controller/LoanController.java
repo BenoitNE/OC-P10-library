@@ -159,7 +159,7 @@ public class LoanController {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting")
 	@ResponseBody
-	public void waitingLine48HInit (Long bookId){
+	public void waitingLine48HInit (long bookId){
 		Optional<BookEntity> bookEntityOptional = bookRepository.findById(bookId);
 		BookEntity bookEntity = bookEntityOptional.get();
 		bookEntity.setStatus("en attente 48h");
@@ -167,5 +167,26 @@ public class LoanController {
 		bookRepository.save(bookEntity);
 		}
 
+	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting/remove")
+	@ResponseBody
+	public void waitingLine48HRemove (long bookId){
+		Optional<BookEntity> bookEntityOptional = bookRepository.findById(bookId);
+		BookEntity bookEntity = bookEntityOptional.get();
+		ReservationRequestEntity reservationRequestEntity = bookEntity.getReservationRequestEntities().get(0);
+		bookEntity.getUserWaitingLine().remove(0);
+
+
+		if (!bookEntity.getUserWaitingLine().isEmpty()){
+			bookEntity.setStatus("en attente NC");
+		}
+		if (bookEntity.getUserWaitingLine().isEmpty()){
+			bookEntity.setStatus("disponible");
+		}
+
+
+		bookRepository.save(bookEntity);
+		reservationRequestRepository.delete(reservationRequestEntity);
+
+	}
 
 }

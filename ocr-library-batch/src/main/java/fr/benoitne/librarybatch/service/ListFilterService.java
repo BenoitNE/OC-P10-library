@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoanListFilterService {
+public class ListFilterService {
 
 	public boolean getLoansWhoMustBeReturned(String endBorrowingDate, String prolongationDate) {
 		LocalDateTime endDate = LocalDateTime.parse(endBorrowingDate);
@@ -33,7 +33,7 @@ public class LoanListFilterService {
 		return false;
 	}
 
-/*	public boolean getLoans48HoursToRemove(String statusBook, String waiting48HDate){
+	public boolean getReservations48HoursToRemove(String statusBook, String waiting48HDate){
 		waiting48HDate ="2020-10-31T17:55:20.180";
 		if(waiting48HDate!=null) {
 		LocalDateTime end48HDate = LocalDateTime.parse(waiting48HDate);
@@ -44,7 +44,7 @@ public class LoanListFilterService {
 			}
 		}
 		return false;
-	}*/
+	}
 
 
 

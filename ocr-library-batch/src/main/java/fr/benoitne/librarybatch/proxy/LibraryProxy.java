@@ -26,11 +26,11 @@ public interface LibraryProxy {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting")
 	@ResponseBody
-	public void waitingLine48HInit (@RequestParam(value = "bookId") long loanId);
+	public void waitingLine48HInit (@RequestParam(value = "bookId") long bookId);
 
-	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
+	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting/remove")
 	@ResponseBody
-	public void loanReturn (@RequestParam(value = "loanId") long loanId);
+	public void reservationReturn(@RequestParam(value = "bookId") long bookId);
 
 	@RequestMapping(method = RequestMethod.GET, path = "/all-reservation")
 	@ResponseBody

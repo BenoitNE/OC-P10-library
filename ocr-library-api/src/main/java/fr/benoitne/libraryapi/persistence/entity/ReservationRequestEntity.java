@@ -15,11 +15,11 @@ public class ReservationRequestEntity {
 
     private String startingDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "userEntity_id")
     private UserEntity userEntity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "bookEntity_id")
     private BookEntity bookEntity;
 

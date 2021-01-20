@@ -1,11 +1,9 @@
 package fr.benoitne.librarybatch.schedule;
 
 import fr.benoitne.librarybatch.bean.BookBean;
-import fr.benoitne.librarybatch.bean.LoanBean;
 import fr.benoitne.librarybatch.bean.ReservationRequestBean;
-import fr.benoitne.librarybatch.entity.EmailTokenEntity;
 import fr.benoitne.librarybatch.repository.EmailTokenRepository;
-import fr.benoitne.librarybatch.service.LoanAPIConsumer;
+import fr.benoitne.librarybatch.service.APIConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -27,7 +25,7 @@ public class MailLoan48HoursScheduler {
     public JavaMailSender emailSender;
 
     @Autowired
-    public LoanAPIConsumer loanAPIConsumer;
+    public APIConsumer APIConsumer;
 
     @Scheduled(cron = "*/10 * * * * *")
 //	@Scheduled(cron = "0 0 8 * * *")
@@ -37,13 +35,13 @@ public class MailLoan48HoursScheduler {
     public void sendEmailLoan48Hours() {
 
         SimpleMailMessage message = new SimpleMailMessage();
-        List<BookBean>bookBeans=loanAPIConsumer.getBooksList48HFilter().collect(Collectors.toList());
-        List<ReservationRequestBean> reservationRequestBeans = loanAPIConsumer.getReservationRequestBeanList();
+        List<BookBean>bookBeans= APIConsumer.getBooksList48HFilter().collect(Collectors.toList());
+        List<ReservationRequestBean> reservationRequestBeans = APIConsumer.getReservationRequestBeanList();
 
         for (BookBean bookBean : bookBeans) {
             if (reservationRequestBeans.get(0).getUserDTO().getUserName().equals(bookBean.getUserWaitingLine().get(0))){
                 email(message, reservationRequestBeans.get(0));
-                loanAPIConsumer.getWaitingLine48HInit(bookBean.getId());
+                APIConsumer.getWaitingLine48HInit(bookBean.getId());
             }
         }
     }

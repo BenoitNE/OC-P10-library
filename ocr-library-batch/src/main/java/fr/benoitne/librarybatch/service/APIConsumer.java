@@ -13,24 +13,24 @@ import fr.benoitne.librarybatch.bean.LoanBean;
 import fr.benoitne.librarybatch.proxy.LibraryProxy;
 
 @Service
-public class LoanAPIConsumer {
+public class APIConsumer {
 
 	@Autowired
 	private LibraryProxy feignProxy;
 
 	@Autowired
-	private LoanListFilterService loanListFilterService;
+	private ListFilterService listFilterService;
 
 	public Stream<LoanBean> getLoansToReturn() {
 		List<LoanBean> loanBeans = getLoanBeans();
 		return StreamSupport.stream(loanBeans.stream().spliterator(), false).filter(
-				x -> loanListFilterService.getLoansWhoMustBeReturned(x.getEndBorrowingDate(), x.getProlongationDate()) == true);
+				x -> listFilterService.getLoansWhoMustBeReturned(x.getEndBorrowingDate(), x.getProlongationDate()) == true);
 	}
 
 	public Stream<BookBean> getBooksList48HFilter(){
 		List<BookBean>bookBeans=feignProxy.listBooks();
 		return StreamSupport.stream(bookBeans.stream().spliterator(), false).filter(
-				x -> loanListFilterService.booksFilter48H(x.getStatus()) == true);
+				x -> listFilterService.booksFilter48H(x.getStatus()) == true);
 	}
 
 //	public Stream<LoanBean> getLoans48HoursStream(){
@@ -38,23 +38,23 @@ public class LoanAPIConsumer {
 //		return StreamSupport.stream(loanBeans.stream().spliterator(), false).filter(
 //				x -> loanListFilterService.getLoans48Hours(x.getBookDTO().getStatus()) == true);
 //	}
-//
-//	public Stream<LoanBean> getLoans48HoursStreamRemove(){
-//		List<LoanBean> loanBeans = getLoanBeans();
-//		return StreamSupport.stream(loanBeans.stream().spliterator(), false).filter(
-//				x -> loanListFilterService.getLoans48HoursToRemove(x.getBookDTO().getStatus(), x.getWaiting48HDate()) == true);
-//	}
+
+	public Stream<BookBean> getReservations48HoursStreamRemove(){
+		List<BookBean> bookBeans = feignProxy.listBooks();
+		return StreamSupport.stream(bookBeans.stream().spliterator(), false).filter(
+				x -> listFilterService.getReservations48HoursToRemove(x.getStatus(), x.getReturnDate()) == true);
+	}
 
 	private List<LoanBean> getLoanBeans() {
 		return feignProxy.allLoans();
 	}
 
-	public void getWaitingLine48HInit (long loanId){
-		feignProxy.waitingLine48HInit(loanId);
+	public void getWaitingLine48HInit (long bookId){
+		feignProxy.waitingLine48HInit(bookId);
 	}
 	
-	public void removeWaitingLoan48H (long loanId){
-		feignProxy.loanReturn(loanId);
+	public void removeWaitingLoan48H (long bookId){
+		feignProxy.reservationReturn(bookId);
 	}
 
 	public List<ReservationRequestBean> getReservationRequestBeanList (){

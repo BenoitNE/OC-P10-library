@@ -11,15 +11,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import fr.benoitne.librarybatch.bean.LoanBean;
-import fr.benoitne.librarybatch.entity.EmailTokenEntity;
 import fr.benoitne.librarybatch.repository.EmailTokenRepository;
-import fr.benoitne.librarybatch.service.LoanAPIConsumer;
+import fr.benoitne.librarybatch.service.APIConsumer;
 
 @Component
 public class MailRelaunchScheduler {
 
 	@Autowired
-	LoanAPIConsumer loanFilters;
+    APIConsumer loanFilters;
 
 	@Autowired
 	EmailTokenRepository emailTokenRepository;

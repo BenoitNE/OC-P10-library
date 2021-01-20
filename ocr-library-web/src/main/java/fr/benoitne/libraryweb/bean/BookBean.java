@@ -146,7 +146,10 @@ public class BookBean {
 
 	public String getReturnDate() {
 		DateTool dateTool = new DateTool();
-		return dateTool.convert(returnDate);
+		if (returnDate!=null) {
+			return dateTool.convert(returnDate);
+		}else
+			return "";
 	}
 
 	public void setReturnDate(String returnDate) {
