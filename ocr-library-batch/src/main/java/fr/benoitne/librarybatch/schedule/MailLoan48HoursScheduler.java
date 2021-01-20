@@ -1,6 +1,8 @@
 package fr.benoitne.librarybatch.schedule;
 
+import fr.benoitne.librarybatch.bean.BookBean;
 import fr.benoitne.librarybatch.bean.LoanBean;
+import fr.benoitne.librarybatch.bean.ReservationRequestBean;
 import fr.benoitne.librarybatch.entity.EmailTokenEntity;
 import fr.benoitne.librarybatch.repository.EmailTokenRepository;
 import fr.benoitne.librarybatch.service.LoanAPIConsumer;
@@ -17,8 +19,6 @@ import java.util.stream.Collectors;
 @Component
 public class MailLoan48HoursScheduler {
 
-    @Autowired
-    LoanAPIConsumer loanFilters;
 
     @Autowired
     EmailTokenRepository emailTokenRepository;
@@ -37,27 +37,28 @@ public class MailLoan48HoursScheduler {
     public void sendEmailLoan48Hours() {
 
         SimpleMailMessage message = new SimpleMailMessage();
-        List<LoanBean> loanBeans = loanFilters.getLoans48HoursStream().collect(Collectors.toList());
+        List<BookBean>bookBeans=loanAPIConsumer.getBooksList48HFilter().collect(Collectors.toList());
+        List<ReservationRequestBean> reservationRequestBeans = loanAPIConsumer.getReservationRequestBeanList();
 
-        for (LoanBean loanbean : loanBeans) {
-            if (loanbean.getUserDTO().getUserName().equals(loanbean.getBookDTO().getUserWaitingLine().get(0))){
-                email(message, loanbean);
-                loanAPIConsumer.getWaitingLine48HInit(loanbean.getId());
+        for (BookBean bookBean : bookBeans) {
+            if (reservationRequestBeans.get(0).getUserDTO().getUserName().equals(bookBean.getUserWaitingLine().get(0))){
+                email(message, reservationRequestBeans.get(0));
+                loanAPIConsumer.getWaitingLine48HInit(bookBean.getId());
             }
         }
     }
 
-        private void email(SimpleMailMessage message, LoanBean loanbean) {
-            message.setTo(loanbean.getUserDTO().getEmail());
-            message.setSubject(loanbean.getBookDTO().getTitle()+" est disponible");
-            message.setText("Bonjour " + loanbean.getUserDTO().getUserName() + ", \n \n"
-                    + "Nous vous informons que l'ouvrage " + loanbean.getBookDTO().getTitle()
+        private void email(SimpleMailMessage message, ReservationRequestBean reservationRequestBean) {
+            message.setTo(reservationRequestBean.getUserDTO().getEmail());
+            message.setSubject(reservationRequestBean.getBookDTO().getTitle()+" est disponible");
+            message.setText("Bonjour " + reservationRequestBean.getUserDTO().getUserName() + ", \n \n"
+                    + "Nous vous informons que l'ouvrage " + reservationRequestBean.getBookDTO().getTitle()
                     + " est disponible. Vous avez 48h pour le récupérer. \n \n" + "Médiathèque CEC Yerres");
 
             LocalDateTime now = LocalDateTime.now();
             String date = now.toString();
-            EmailTokenEntity emailTokenEntity = new EmailTokenEntity("48h email", date, loanbean.getId());
-            emailTokenRepository.save(emailTokenEntity);
+           // EmailTokenEntity emailTokenEntity = new EmailTokenEntity("48h email", date, reservationRequestBean.getId());
+           // emailTokenRepository.save(emailTokenEntity);
 
             this.emailSender.send(message);
         }

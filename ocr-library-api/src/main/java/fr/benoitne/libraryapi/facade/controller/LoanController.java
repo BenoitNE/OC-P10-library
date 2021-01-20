@@ -159,13 +159,13 @@ public class LoanController {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting")
 	@ResponseBody
-	public void waitingLine48HInit (Long loanId){
-		Optional<LoanEntity> loanEntityOptional = loanRepository.findById(loanId);
-		LoanEntity loanEntity = loanEntityOptional.get();
-		loanEntity.getBookEntity().setStatus("en attente 48h");
-	loanEntity.setWaiting48HDate(loanDateManagement.get48HWaitingDate());
-	loanRepository.save(loanEntity);
-	}
+	public void waitingLine48HInit (Long bookId){
+		Optional<BookEntity> bookEntityOptional = bookRepository.findById(bookId);
+		BookEntity bookEntity = bookEntityOptional.get();
+		bookEntity.setStatus("en attente 48h");
+		bookEntity.setWaiting48HDate(loanDateManagement.get48HWaitingDate());
+		bookRepository.save(bookEntity);
+		}
 
 
 }

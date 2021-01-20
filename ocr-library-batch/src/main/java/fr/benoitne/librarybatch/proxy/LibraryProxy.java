@@ -2,7 +2,11 @@ package fr.benoitne.librarybatch.proxy;
 
 
 import java.util.List;
+import java.util.stream.Stream;
 
+import fr.benoitne.library.dto.ReservationRequestDTO;
+import fr.benoitne.librarybatch.bean.BookBean;
+import fr.benoitne.librarybatch.bean.ReservationRequestBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,9 +26,17 @@ public interface LibraryProxy {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting")
 	@ResponseBody
-	public void waitingLine48HInit (@RequestParam(value = "loanId") long loanId);
+	public void waitingLine48HInit (@RequestParam(value = "bookId") long loanId);
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
 	@ResponseBody
 	public void loanReturn (@RequestParam(value = "loanId") long loanId);
+
+	@RequestMapping(method = RequestMethod.GET, path = "/all-reservation")
+	@ResponseBody
+	public List<ReservationRequestBean> allReservation();
+
+	@RequestMapping(method = RequestMethod.GET, path = "/book")
+	@ResponseBody
+	public List<BookBean> listBooks();
 }

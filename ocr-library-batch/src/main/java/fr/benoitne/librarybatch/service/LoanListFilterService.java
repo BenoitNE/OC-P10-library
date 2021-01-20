@@ -26,25 +26,26 @@ public class LoanListFilterService {
 		return false;
 	}
 
-	public boolean getLoans48Hours(String statusBook){
+	public boolean booksFilter48H(String statusBook){
 		if (statusBook.equals("en attente NC")){
 			return true;
 		}
 		return false;
 	}
 
-	public boolean getLoans48HoursToRemove(String statusBook, String waiting48HDate){
+/*	public boolean getLoans48HoursToRemove(String statusBook, String waiting48HDate){
 		waiting48HDate ="2020-10-31T17:55:20.180";
 		if(waiting48HDate!=null) {
 		LocalDateTime end48HDate = LocalDateTime.parse(waiting48HDate);
 		LocalDateTime now = LocalDateTime.now();
-
 
 			if (statusBook.equals("en attente 48h") && now.compareTo(end48HDate) > 0) {
 				return true;
 			}
 		}
 		return false;
-	}
+	}*/
+
+
 
 }

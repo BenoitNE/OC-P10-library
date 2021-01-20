@@ -1,7 +1,8 @@
+fr/benoitne/librarybatch/bean/BookBean.class
 fr/benoitne/librarybatch/config/MySQLConfig.class
-fr/benoitne/librarybatch/schedule/Loan48HoursRemoveScheduler.class
 fr/benoitne/librarybatch/proxy/LibraryProxy.class
 fr/benoitne/librarybatch/bean/LoanBean.class
+fr/benoitne/librarybatch/bean/ReservationRequestBean.class
 fr/benoitne/librarybatch/entity/EmailTokenEntity.class
 fr/benoitne/librarybatch/service/LoanAPIConsumer.class
 fr/benoitne/librarybatch/schedule/MailRelaunchScheduler.class

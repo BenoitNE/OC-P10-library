@@ -53,8 +53,8 @@ public class MailRelaunchScheduler {
 
 		LocalDateTime now = LocalDateTime.now();
 		String date = now.toString();
-		EmailTokenEntity emailTokenEntity = new EmailTokenEntity("Email relaunch", date, loanbean.getId());
-		emailTokenRepository.save(emailTokenEntity);
+		//EmailTokenEntity emailTokenEntity = new EmailTokenEntity("Email relaunch", date, loanbean.getId());
+		//emailTokenRepository.save(emailTokenEntity);
 
 		this.emailSender.send(message);
 	}

@@ -56,6 +56,8 @@ public class BookEntity {
 	@OneToMany(mappedBy = "bookEntity", fetch = FetchType.LAZY)
 	private List<ReservationRequestEntity> reservationRequestEntities;
 
+	private String waiting48HDate;
+
 
 	public BookEntity() {
 		super();
@@ -171,5 +173,13 @@ public class BookEntity {
 
 	public void setReservationRequestEntities(List<ReservationRequestEntity> reservationRequestEntities) {
 		this.reservationRequestEntities = reservationRequestEntities;
+	}
+
+	public String getWaiting48HDate() {
+		return waiting48HDate;
+	}
+
+	public void setWaiting48HDate(String waiting48HDate) {
+		this.waiting48HDate = waiting48HDate;
 	}
 }
