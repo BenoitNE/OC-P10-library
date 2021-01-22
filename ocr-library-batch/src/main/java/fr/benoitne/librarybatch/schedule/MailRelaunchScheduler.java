@@ -4,26 +4,21 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import fr.benoitne.librarybatch.bean.LoanBean;
-import fr.benoitne.librarybatch.entity.EmailTokenEntity;
 import fr.benoitne.librarybatch.repository.EmailTokenRepository;
-import fr.benoitne.librarybatch.service.LoanFiltersService;
+import fr.benoitne.librarybatch.service.APIConsumer;
 
 @Component
 public class MailRelaunchScheduler {
 
 	@Autowired
-	LoanFiltersService loanFilters;
+    APIConsumer loanFilters;
 
 	@Autowired
 	EmailTokenRepository emailTokenRepository;
@@ -39,7 +34,7 @@ public class MailRelaunchScheduler {
 	public void sendEmailRelaunch() {
 
 		SimpleMailMessage message = new SimpleMailMessage();
-		List<LoanBean> loanBeans = loanFilters.getLoans().collect(Collectors.toList());
+		List<LoanBean> loanBeans = loanFilters.getLoansToReturn().collect(Collectors.toList());
 
 		for (LoanBean loanbean : loanBeans) {
 
@@ -57,8 +52,8 @@ public class MailRelaunchScheduler {
 
 		LocalDateTime now = LocalDateTime.now();
 		String date = now.toString();
-		EmailTokenEntity emailTokenEntity = new EmailTokenEntity("Email relaunch", date, loanbean.getId());
-		emailTokenRepository.save(emailTokenEntity);
+		//EmailTokenEntity emailTokenEntity = new EmailTokenEntity("Email relaunch", date, loanbean.getId());
+		//emailTokenRepository.save(emailTokenEntity);
 
 		this.emailSender.send(message);
 	}

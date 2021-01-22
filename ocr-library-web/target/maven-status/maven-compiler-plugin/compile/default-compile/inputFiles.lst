@@ -1,0 +1,14 @@
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/bean/LibraryBean.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/security/WebSecurityConfiguration.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/bean/LoanBean.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/bean/UserBean.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/service/DateTool.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/OcrLibraryApplication.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/proxy/LibraryProxy.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/security/SpringUserDetailsService.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/controller/LoanController.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/bean/ReservationRequestBean.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/controller/ReservationrequestController.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/controller/BookController.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/bean/BookBean.java
+/home/benoitne/Documents/intelliJ_workspace/OC-P10-library/ocr-library-web/src/main/java/fr/benoitne/libraryweb/controller/UserController.java

@@ -10,7 +10,7 @@ import fr.benoitne.libraryapi.persistence.entity.LoanEntity;
 public class SetLoanStatus {
 
 	public LoanEntity initialStatus(LoanEntity loanEntity) {
-		loanEntity.setStatus("En cours de prêt");
+		loanEntity.setStatus("En cours ou demande de prêt");
 		return loanEntity;
 	}
 	

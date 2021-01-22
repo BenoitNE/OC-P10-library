@@ -1,6 +1,11 @@
 package fr.benoitne.libraryweb.bean;
 
 
+import fr.benoitne.library.dto.LoanDTO;
+import fr.benoitne.libraryweb.service.DateTool;
+
+import java.util.List;
+
 public class BookBean {
 
 	private long id;
@@ -23,7 +28,13 @@ public class BookBean {
 
 	private String summary;
 
-	private LibraryBean libraryBean;
+	private LibraryBean libraryDTO;
+
+	private List<String> userWaitingLine;
+
+	private List<String> userLoanList;
+
+	private String returnDate;
 	
 	public BookBean() {
 		super();
@@ -108,15 +119,41 @@ public class BookBean {
 	public void setImageLink(String imageLink) {
 		this.imageLink = imageLink;
 	}
-	
-	
 
-	public LibraryBean getLibraryBean() {
-		return libraryBean;
+	public LibraryBean getLibraryDTO() {
+		return libraryDTO;
 	}
 
-	public void setLibraryBean(LibraryBean libraryBean) {
-		this.libraryBean = libraryBean;
+	public void setLibraryDTO(LibraryBean libraryDTO) {
+		this.libraryDTO = libraryDTO;
+	}
+
+	public List<String> getUserWaitingLine() {
+		return userWaitingLine;
+	}
+
+	public void setUserWaitingLine(List<String> userWaitingLine) {
+		this.userWaitingLine = userWaitingLine;
+	}
+
+	public List<String> getUserLoanList() {
+		return userLoanList;
+	}
+
+	public void setUserLoanList(List<String> userLoanList) {
+		this.userLoanList = userLoanList;
+	}
+
+	public String getReturnDate() {
+		DateTool dateTool = new DateTool();
+		if (returnDate!=null) {
+			return dateTool.convert(returnDate);
+		}else
+			return "";
+	}
+
+	public void setReturnDate(String returnDate) {
+		this.returnDate = returnDate;
 	}
 
 	@Override

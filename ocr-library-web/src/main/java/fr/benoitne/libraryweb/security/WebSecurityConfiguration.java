@@ -31,7 +31,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		String loginPage = "/login";
 		String logoutPage = "/logout";
 
-		http.authorizeRequests().antMatchers("/").permitAll().antMatchers(loginPage).permitAll().antMatchers("/user/**")
+		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/img/*").permitAll().antMatchers(loginPage).permitAll().antMatchers("/user/**")
 				.hasAuthority("USER").anyRequest().authenticated().and().csrf().disable().formLogin()
 				.loginPage(loginPage).loginPage("/").failureUrl("/login?error=true").defaultSuccessUrl("/user/home")
 				.usernameParameter("user_name").passwordParameter("password").and().logout()
@@ -41,7 +41,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**", "/assets/**", "/static/**", "/css/**", "/js/**", "/images/**",
+		web.ignoring().antMatchers("/resources/**", "/src/main/webapp/assets/**", "/static/**", "/css/**", "/js/**", "/images/**",
 				"/webapp/**");
 	}
 

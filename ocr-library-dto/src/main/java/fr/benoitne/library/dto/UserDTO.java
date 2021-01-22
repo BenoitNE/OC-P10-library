@@ -1,6 +1,8 @@
 package fr.benoitne.library.dto;
 
 
+import java.util.List;
+
 public class UserDTO {
 
 	private long id;
@@ -20,7 +22,8 @@ public class UserDTO {
 	private String role;
 	
 	private String password;
-	
+
+	private List<LoanDTO> loanDTO;
 
 	public long getId() {
 		return id;
@@ -94,10 +97,11 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	
+	public List<LoanDTO> getLoanDTO() {
+		return loanDTO;
+	}
 
-
-
-	
-
+	public void setLoanDTO(List<LoanDTO> loanDTO) {
+		this.loanDTO = loanDTO;
+	}
 }
