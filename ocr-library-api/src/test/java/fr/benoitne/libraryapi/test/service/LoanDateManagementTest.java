@@ -21,7 +21,7 @@ public class LoanDateManagementTest {
     }
 
     @Test
-    public void getReturnDateWithOnlyEndBorrowingDateDateToCompare() {
+    public void getReturnDateWithOnlyEndBorrowingDateToCompare() {
         Assert.assertEquals("2020-09-17T17:55:20.180", loanDateManagementService.getReturnDate(data1()));
     }
 
@@ -97,6 +97,38 @@ public class LoanDateManagementTest {
         loanEntityList.add(loanEntity1);
         loanEntityList.add(loanEntity2);
         loanEntityList.add(loanEntity3);
+
+        return loanEntityList;
+    }
+
+    @Test
+    public void getReturnDateWithOneLoanOnlyEndBorrowingDate() {
+        Assert.assertEquals("2020-09-17T17:55:20.180", loanDateManagementService.getReturnDate(data4()));
+    }
+
+    private List<LoanEntity> data4() {
+        LoanEntity loanEntity1 = new LoanEntity();
+        loanEntity1.setEndBorrowingDate("2020-09-17T17:55:20.180");
+        loanEntity1.setProlongationDate(null);
+
+        List<LoanEntity> loanEntityList = new ArrayList<>();
+        loanEntityList.add(loanEntity1);
+
+        return loanEntityList;
+    }
+
+    @Test
+    public void getReturnDateWithOneLoanOnlyProlongationDate() {
+        Assert.assertEquals("2020-10-17T17:55:20.180", loanDateManagementService.getReturnDate(data5()));
+    }
+
+    private List<LoanEntity> data5() {
+        LoanEntity loanEntity1 = new LoanEntity();
+        loanEntity1.setEndBorrowingDate("2020-09-17T17:55:20.180");
+        loanEntity1.setProlongationDate("2020-10-17T17:55:20.180");
+
+        List<LoanEntity> loanEntityList = new ArrayList<>();
+        loanEntityList.add(loanEntity1);
 
         return loanEntityList;
     }
