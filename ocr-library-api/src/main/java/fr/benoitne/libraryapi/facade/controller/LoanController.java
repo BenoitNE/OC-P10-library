@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fr.benoitne.library.dto.LoanDTO;
 import fr.benoitne.libraryapi.facade.assembler.LoanDTOAssembler;
-import fr.benoitne.libraryapi.service.LoanDateManagement;
-import fr.benoitne.libraryapi.service.SetLoanStatus;
+import fr.benoitne.libraryapi.service.LoanDateManagementService;
+import fr.benoitne.libraryapi.service.SetLoanStatusService;
 
 @Controller
 @RequestMapping(value = "/")
@@ -40,10 +40,10 @@ public class LoanController {
 	private LoanDTOAssembler loanDTOAssembler;
 
 	@Autowired
-	private SetLoanStatus setLoanStatus;
+	private SetLoanStatusService setLoanStatusService;
 
 	@Autowired
-	LoanDateManagement loanDateManagement;
+	LoanDateManagementService loanDateManagementService;
 
 	@Autowired
 	ReservationRequestRepository reservationRequestRepository;
@@ -68,9 +68,9 @@ public class LoanController {
 	@ResponseBody
 	public Optional<LoanDTO> extendDate(@PathVariable(value = "loanId") long id) {
 		Optional<LoanEntity> loanEntity = loanRepository.findById(id);
-		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatus.loanInProgress()))) != null) {
-			loanEntity.map(x -> loanDateManagement.setLoanProlongationDate(loanEntity));
-			loanEntity.map(x -> setLoanStatus.prolongationStatus(loanEntity));
+		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatusService.loanInProgress()))) != null) {
+			loanEntity.map(x -> loanDateManagementService.setLoanProlongationDate(loanEntity));
+			loanEntity.map(x -> setLoanStatusService.prolongationStatus(loanEntity));
 			loanEntity.ifPresent(x -> loanRepository.save(x));
 			return loanEntity.map(x -> loanDTOAssembler.convertToDTO(x));
 		} else
@@ -98,11 +98,11 @@ public class LoanController {
 		if (optBookEntity.isPresent() && optUserEntity.isPresent()) {
 			List<LoanEntity> loanEntities = (List<LoanEntity>) loanRepository.findAll();
 			loanEntity.setId(loanEntities.size() + 1);
-			loanEntity.setStartBorrowingDate(loanDateManagement.getStartBorrowingDate());
-			loanEntity.setEndBorrowingDate(loanDateManagement.getEndBorrowingDate());
+			loanEntity.setStartBorrowingDate(loanDateManagementService.getStartBorrowingDate());
+			loanEntity.setEndBorrowingDate(loanDateManagementService.getEndBorrowingDate());
 			loanEntity.setBookEntity(bookEntity);
 			loanEntity.setUserEntity(userEntity);
-			setLoanStatus.initialStatus(loanEntity);
+			setLoanStatusService.initialStatus(loanEntity);
 
 
 			if ((bookEntity.getQuantity()) - (loanEntityList.size()) < 1) {
@@ -112,7 +112,7 @@ public class LoanController {
 				reservationRequestEntity.setStatus("Demande de réservation en cours");
 				reservationRequestEntity.setBookEntity(bookEntity);
 				reservationRequestEntity.setUserEntity(userEntity);
-				reservationRequestEntity.setStartingDate(loanDateManagement.getStartBorrowingDate());
+				reservationRequestEntity.setStartingDate(loanDateManagementService.getStartBorrowingDate());
 				reservationRequestRepository.save(reservationRequestEntity);
 
 			}
@@ -163,7 +163,7 @@ public class LoanController {
 		Optional<BookEntity> bookEntityOptional = bookRepository.findById(bookId);
 		BookEntity bookEntity = bookEntityOptional.get();
 		bookEntity.setStatus("en attente 48h");
-		bookEntity.setWaiting48HDate(loanDateManagement.get48HWaitingDate());
+		bookEntity.setWaiting48HDate(loanDateManagementService.get48HWaitingDate());
 		bookRepository.save(bookEntity);
 		}
 

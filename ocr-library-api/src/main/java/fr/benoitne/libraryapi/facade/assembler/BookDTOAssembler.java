@@ -1,10 +1,8 @@
 package fr.benoitne.libraryapi.facade.assembler;
 
 
-import fr.benoitne.library.dto.LoanDTO;
-import fr.benoitne.libraryapi.persistence.entity.LibraryEntity;
 import fr.benoitne.libraryapi.persistence.entity.LoanEntity;
-import fr.benoitne.libraryapi.service.LoanDateManagement;
+import fr.benoitne.libraryapi.service.LoanDateManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +24,7 @@ public class BookDTOAssembler {
 	private LoanDTOAssembler loanDTOAssembler;
 
 	@Autowired
-	private LoanDateManagement loanDateManagement;
+	private LoanDateManagementService loanDateManagementService;
 
 	public BookDTO convertToDTO(BookEntity bookEntity) {
 		BookDTO bookDTO = new BookDTO();
@@ -43,7 +41,7 @@ public class BookDTOAssembler {
 		bookDTO.setLibraryDTO(libraryDTOAssembler.convertToDTO(bookEntity.getLibraryEntity()));
 		bookDTO.setUserWaitingLine(bookEntity.getUserWaitingLine());
 		bookDTO.setUserLoanList(getUserLoanList(bookEntity.getLoanEntity()));
-		bookDTO.setReturnDate(loanDateManagement.getReturnDate(bookEntity.getLoanEntity()));
+		bookDTO.setReturnDate(loanDateManagementService.getReturnDate(bookEntity.getLoanEntity()));
 
 		return bookDTO;
 	}

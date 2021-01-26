@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import fr.benoitne.libraryapi.persistence.entity.LoanEntity;
 
 @Service
-public class SetLoanStatus {
+public class SetLoanStatusService {
 
 	public LoanEntity initialStatus(LoanEntity loanEntity) {
 		loanEntity.setStatus("En cours ou demande de prêt");
