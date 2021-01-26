@@ -133,4 +133,30 @@ public class LoanDateManagementTest {
         return loanEntityList;
     }
 
+    @Test
+    public void getReturnDateWithEndBorrowingDateBeforeProlongationDateToCompareThirdLoan() {
+        Assert.assertEquals("2020-09-27T17:55:20.180", loanDateManagementService.getReturnDate(data6()));
+    }
+
+    private List<LoanEntity> data6() {
+        LoanEntity loanEntity1 = new LoanEntity();
+        loanEntity1.setEndBorrowingDate("2020-09-17T17:55:20.180");
+        loanEntity1.setProlongationDate("2020-10-17T17:55:20.180");
+
+        LoanEntity loanEntity2 = new LoanEntity();
+        loanEntity2.setEndBorrowingDate("2020-09-22T17:55:20.180");
+        loanEntity2.setProlongationDate("2020-10-22T17:55:20.180");
+
+        LoanEntity loanEntity3 = new LoanEntity();
+        loanEntity3.setEndBorrowingDate("2020-09-27T17:55:20.180");
+        loanEntity3.setProlongationDate(null);
+
+        List<LoanEntity> loanEntityList = new ArrayList<>();
+        loanEntityList.add(loanEntity1);
+        loanEntityList.add(loanEntity2);
+        loanEntityList.add(loanEntity3);
+
+        return loanEntityList;
+    }
+
 }
