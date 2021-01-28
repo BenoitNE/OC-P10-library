@@ -25,14 +25,14 @@ public class BookController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/book")
 	@ResponseBody
-	public Stream<BookDTO> findBooks() {
+	public Stream<BookDTO> getBooks() {
 		return StreamSupport.stream(bookRepository.findAll().spliterator(), false)
 				.map(bookEntity -> bookDTOAssembler.convertToDTO(bookEntity));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/book/search")
 	@ResponseBody
-	public Stream<BookDTO> listSearch(String search) {
+	public Stream<BookDTO> booksSearch(String search) {
 		return StreamSupport.stream(bookRepository.search(search).spliterator(), false)
 				.map(bookEntity -> bookDTOAssembler.convertToDTO(bookEntity));
 	}

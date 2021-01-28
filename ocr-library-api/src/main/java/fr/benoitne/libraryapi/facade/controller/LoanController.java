@@ -1,5 +1,6 @@
 package fr.benoitne.libraryapi.facade.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -94,45 +95,55 @@ public class LoanController {
 		List<LoanEntity> loanEntityList = bookEntity.getLoanEntity();
 		List<String> userWaitingLine = bookEntity.getUserWaitingLine();
 		List<ReservationRequestEntity> reservationRequestEntities = bookEntity.getReservationRequestEntities();
+		List<String> bookTitles = new ArrayList<>();
 
-		if (optBookEntity.isPresent() && optUserEntity.isPresent()) {
-			List<LoanEntity> loanEntities = (List<LoanEntity>) loanRepository.findAll();
-			loanEntity.setId(loanEntities.size() + 1);
-			loanEntity.setStartBorrowingDate(loanDateManagementService.getStartBorrowingDate());
-			loanEntity.setEndBorrowingDate(loanDateManagementService.getEndBorrowingDate());
-			loanEntity.setBookEntity(bookEntity);
-			loanEntity.setUserEntity(userEntity);
-			setLoanStatusService.initialStatus(loanEntity);
-
-
-			if ((bookEntity.getQuantity()) - (loanEntityList.size()) < 1) {
-				userWaitingLine.add(userEntity.getUserName());
-				bookEntity.setUserWaitingLine(userWaitingLine);
-				reservationRequestEntity.setId(reservationRequestEntities.size()+1);
-				reservationRequestEntity.setStatus("Demande de réservation en cours");
-				reservationRequestEntity.setBookEntity(bookEntity);
-				reservationRequestEntity.setUserEntity(userEntity);
-				reservationRequestEntity.setStartingDate(loanDateManagementService.getStartBorrowingDate());
-				reservationRequestRepository.save(reservationRequestEntity);
-
-			}
-
-			if ((bookEntity.getQuantity()) - (loanEntityList.size()) <= 1) {
-				bookEntity.setStatus("indisponible");
-			}
+		if(!userEntity.getLoanEntity().isEmpty())
+		for (LoanEntity loan :  userEntity.getLoanEntity()){
+			bookTitles.add(loan.getBookEntity().getTitle());
 		}
+
+		if(!bookTitles.contains(bookEntity.getTitle())) {
+
+			if (optBookEntity.isPresent() && optUserEntity.isPresent()) {
+				List<LoanEntity> loanEntities = (List<LoanEntity>) loanRepository.findAll();
+				loanEntity.setId(loanEntities.size() + 1);
+				loanEntity.setStartBorrowingDate(loanDateManagementService.getStartBorrowingDate());
+				loanEntity.setEndBorrowingDate(loanDateManagementService.getEndBorrowingDate());
+				loanEntity.setBookEntity(bookEntity);
+				loanEntity.setUserEntity(userEntity);
+				setLoanStatusService.initialStatus(loanEntity);
+
+
+				if ((bookEntity.getQuantity()) - (loanEntityList.size()) < 1) {
+					userWaitingLine.add(userEntity.getUserName());
+					bookEntity.setUserWaitingLine(userWaitingLine);
+					reservationRequestEntity.setId(reservationRequestEntities.size() + 1);
+					reservationRequestEntity.setStatus("Demande de réservation en cours");
+					reservationRequestEntity.setBookEntity(bookEntity);
+					reservationRequestEntity.setUserEntity(userEntity);
+					reservationRequestEntity.setStartingDate(loanDateManagementService.getStartBorrowingDate());
+					reservationRequestRepository.save(reservationRequestEntity);
+
+				}
+
+				if ((bookEntity.getQuantity()) - (loanEntityList.size()) <= 1) {
+					bookEntity.setStatus("indisponible");
+				}
+			}
+
 			bookRepository.save(bookEntity);
 
 
-		if(bookEntity.getUserWaitingLine().isEmpty())
+			if(bookEntity.getUserWaitingLine().isEmpty())
 			loanRepository.save(loanEntity);
 
+		}
 			return loanEntity;
 		}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
 	@ResponseBody
-	public void loanReturn (long loanId){
+	public String loanReturn (long loanId){
 		Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
 		LoanArchiveEntityBuilder archiveBuilder = new LoanArchiveEntityBuilder();
 		LoanEntity loanEntity = optLoanEntity.get();
@@ -155,6 +166,8 @@ public class LoanController {
 		}
 		bookRepository.save(bookEntity);
 		loanRepository.delete(loanEntity);
+
+		return "Le livre à bien été retourné.";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting")

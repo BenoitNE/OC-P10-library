@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoanDateManagementTest {
+public class LoanDateManagementServiceTest {
 
     LoanDateManagementService loanDateManagementService = new LoanDateManagementService();
 
@@ -158,5 +158,16 @@ public class LoanDateManagementTest {
 
         return loanEntityList;
     }
+
+    @Test
+    public void testIfListLoanEntityIsNull() {
+        Assert.assertEquals("Date de retour indisponible", loanDateManagementService.getReturnDate(data7()));
+    }
+
+    private List<LoanEntity> data7() {
+        List<LoanEntity> loanEntityList = null;
+        return loanEntityList;
+    }
+
 
 }
