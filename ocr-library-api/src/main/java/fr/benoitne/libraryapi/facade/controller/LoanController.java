@@ -1,10 +1,13 @@
 package fr.benoitne.libraryapi.facade.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import fr.benoitne.libraryapi.exeption.ResourceNotFoundException;
 import fr.benoitne.libraryapi.facade.assembler.LoanArchiveEntityBuilder;
 import fr.benoitne.libraryapi.persistence.entity.*;
 import fr.benoitne.libraryapi.persistence.repository.*;
@@ -17,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fr.benoitne.library.dto.LoanDTO;
 import fr.benoitne.libraryapi.facade.assembler.LoanDTOAssembler;
-import fr.benoitne.libraryapi.service.LoanDateManagement;
-import fr.benoitne.libraryapi.service.SetLoanStatus;
+import fr.benoitne.libraryapi.service.LoanDateManagementService;
+import fr.benoitne.libraryapi.service.SetLoanStatusService;
 
 @Controller
 @RequestMapping(value = "/")
@@ -40,10 +43,10 @@ public class LoanController {
 	private LoanDTOAssembler loanDTOAssembler;
 
 	@Autowired
-	private SetLoanStatus setLoanStatus;
+	private SetLoanStatusService setLoanStatusService;
 
 	@Autowired
-	LoanDateManagement loanDateManagement;
+	LoanDateManagementService loanDateManagementService;
 
 	@Autowired
 	ReservationRequestRepository reservationRequestRepository;
@@ -68,9 +71,9 @@ public class LoanController {
 	@ResponseBody
 	public Optional<LoanDTO> extendDate(@PathVariable(value = "loanId") long id) {
 		Optional<LoanEntity> loanEntity = loanRepository.findById(id);
-		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatus.loanInProgress()))) != null) {
-			loanEntity.map(x -> loanDateManagement.setLoanProlongationDate(loanEntity));
-			loanEntity.map(x -> setLoanStatus.prolongationStatus(loanEntity));
+		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatusService.loanInProgress()))) != null) {
+			loanEntity.map(x -> loanDateManagementService.setLoanProlongationDate(loanEntity));
+			loanEntity.map(x -> setLoanStatusService.prolongationStatus(loanEntity));
 			loanEntity.ifPresent(x -> loanRepository.save(x));
 			return loanEntity.map(x -> loanDTOAssembler.convertToDTO(x));
 		} else
@@ -80,113 +83,103 @@ public class LoanController {
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/add")
 	@ResponseBody
 	public LoanDTO newLoan(long userId, long bookId) {
-		LoanEntity loanEntity = add(userId, bookId);
+
+			LoanEntity loanEntity = add(userId, bookId);
 		return loanDTOAssembler.convertToDTO(loanEntity);
+
 	}
 
 	private LoanEntity add(long userId, long bookId) {
-		LoanEntity loanEntity = new LoanEntity();
-		ReservationRequestEntity reservationRequestEntity = new ReservationRequestEntity();
-		Optional<BookEntity> optBookEntity = bookRepository.findById(bookId);
-		Optional<UserEntity> optUserEntity = userRepository.findById(userId);
-		BookEntity bookEntity = optBookEntity.get();
-		UserEntity userEntity = optUserEntity.get();
-		List<LoanEntity> loanEntityList = bookEntity.getLoanEntity();
-		List<String> userWaitingLine = bookEntity.getUserWaitingLine();
-		List<ReservationRequestEntity> reservationRequestEntities = bookEntity.getReservationRequestEntities();
+		try {
+			LoanEntity loanEntity = new LoanEntity();
+			ReservationRequestEntity reservationRequestEntity = new ReservationRequestEntity();
+			Optional<BookEntity> optBookEntity = bookRepository.findById(bookId);
+			Optional<UserEntity> optUserEntity = userRepository.findById(userId);
+			BookEntity bookEntity = optBookEntity.get();
+			UserEntity userEntity = optUserEntity.get();
+			List<LoanEntity> loanEntityList = bookEntity.getLoanEntity();
+			List<String> userWaitingLine = bookEntity.getUserWaitingLine();
+			List<ReservationRequestEntity> reservationRequestEntities = bookEntity.getReservationRequestEntities();
+			List<String> bookTitles = new ArrayList<>();
 
-		if (optBookEntity.isPresent() && optUserEntity.isPresent()) {
-			List<LoanEntity> loanEntities = (List<LoanEntity>) loanRepository.findAll();
-			loanEntity.setId(loanEntities.size() + 1);
-			loanEntity.setStartBorrowingDate(loanDateManagement.getStartBorrowingDate());
-			loanEntity.setEndBorrowingDate(loanDateManagement.getEndBorrowingDate());
-			loanEntity.setBookEntity(bookEntity);
-			loanEntity.setUserEntity(userEntity);
-			setLoanStatus.initialStatus(loanEntity);
+			if (!userEntity.getLoanEntity().isEmpty())
+				for (LoanEntity loan : userEntity.getLoanEntity()) {
+					bookTitles.add(loan.getBookEntity().getTitle());
+				}
+
+			if (!bookTitles.contains(bookEntity.getTitle())) {
+
+				if (optBookEntity.isPresent() && optUserEntity.isPresent()) {
+					List<LoanEntity> loanEntities = (List<LoanEntity>) loanRepository.findAll();
+					loanEntity.setId(loanEntities.size() + 1);
+					loanEntity.setStartBorrowingDate(loanDateManagementService.getStartBorrowingDate());
+					loanEntity.setEndBorrowingDate(loanDateManagementService.getEndBorrowingDate());
+					loanEntity.setBookEntity(bookEntity);
+					loanEntity.setUserEntity(userEntity);
+					setLoanStatusService.initialStatus(loanEntity);
 
 
-			if ((bookEntity.getQuantity()) - (loanEntityList.size()) < 1) {
-				userWaitingLine.add(userEntity.getUserName());
-				bookEntity.setUserWaitingLine(userWaitingLine);
-				reservationRequestEntity.setId(reservationRequestEntities.size()+1);
-				reservationRequestEntity.setStatus("Demande de réservation en cours");
-				reservationRequestEntity.setBookEntity(bookEntity);
-				reservationRequestEntity.setUserEntity(userEntity);
-				reservationRequestEntity.setStartingDate(loanDateManagement.getStartBorrowingDate());
-				reservationRequestRepository.save(reservationRequestEntity);
+					if ((bookEntity.getQuantity()) - (loanEntityList.size()) < 1) {
+						userWaitingLine.add(userEntity.getUserName());
+						bookEntity.setUserWaitingLine(userWaitingLine);
+						reservationRequestEntity.setId(reservationRequestEntities.size() + 1);
+						reservationRequestEntity.setStatus("Demande de réservation en cours");
+						reservationRequestEntity.setBookEntity(bookEntity);
+						reservationRequestEntity.setUserEntity(userEntity);
+						reservationRequestEntity.setStartingDate(loanDateManagementService.getStartBorrowingDate());
+						reservationRequestRepository.save(reservationRequestEntity);
 
+					}
+
+					if ((bookEntity.getQuantity()) - (loanEntityList.size()) <= 1) {
+						bookEntity.setStatus("indisponible");
+					}
+				}
+
+				bookRepository.save(bookEntity);
+
+				if (bookEntity.getUserWaitingLine().isEmpty())
+					loanRepository.save(loanEntity);
 			}
-
-			if ((bookEntity.getQuantity()) - (loanEntityList.size()) <= 1) {
-				bookEntity.setStatus("indisponible");
-			}
-		}
-			bookRepository.save(bookEntity);
-
-
-		if(bookEntity.getUserWaitingLine().isEmpty())
-			loanRepository.save(loanEntity);
-
 			return loanEntity;
+		} catch (Exception e){
+			return null;
 		}
+	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
 	@ResponseBody
-	public void loanReturn (long loanId){
-		Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
-		LoanArchiveEntityBuilder archiveBuilder = new LoanArchiveEntityBuilder();
-		LoanEntity loanEntity = optLoanEntity.get();
-		BookEntity bookEntity = loanEntity.getBookEntity();
-		UserEntity userEntity = loanEntity.getUserEntity();
-		LoanArchiveEntity loanArchiveEntity = archiveBuilder.getLoanArchiveEntity(loanEntity);
+	public String loanReturn (long loanId) {
 
-		if (!bookEntity.getUserWaitingLine().isEmpty()){
-			loanArchiveRepository.save(loanArchiveEntity);
-			bookEntity.setStatus("en attente NC");
+		try {
+			Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
+			LoanArchiveEntityBuilder archiveBuilder = new LoanArchiveEntityBuilder();
+			LoanEntity loanEntity = optLoanEntity.get();
+			BookEntity bookEntity = loanEntity.getBookEntity();
+			UserEntity userEntity = loanEntity.getUserEntity();
+			LoanArchiveEntity loanArchiveEntity = archiveBuilder.getLoanArchiveEntity(loanEntity);
 
-			if (loanEntity.getWaiting48HDate()!=null){
-				bookEntity.getUserWaitingLine().remove(0);
+			if (!bookEntity.getUserWaitingLine().isEmpty()) {
+				loanArchiveRepository.save(loanArchiveEntity);
+				bookEntity.setStatus("en attente NC");
+
+				if (loanEntity.getWaiting48HDate() != null) {
+					bookEntity.getUserWaitingLine().remove(0);
+				}
 			}
+
+			if (bookEntity.getUserWaitingLine().isEmpty()) {
+				loanArchiveRepository.save(loanArchiveEntity);
+				bookEntity.setStatus("disponible");
+			}
+			bookRepository.save(bookEntity);
+			loanRepository.delete(loanEntity);
+
+			return "Le livre à bien été retourné.";
+
+		} catch (Exception e) {
+			return "Le livre ne peut pas être rendu.";
 		}
-
-		if (bookEntity.getUserWaitingLine().isEmpty()){
-			loanArchiveRepository.save(loanArchiveEntity);
-			bookEntity.setStatus("disponible");
-		}
-		bookRepository.save(bookEntity);
-		loanRepository.delete(loanEntity);
-	}
-
-	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting")
-	@ResponseBody
-	public void waitingLine48HInit (long bookId){
-		Optional<BookEntity> bookEntityOptional = bookRepository.findById(bookId);
-		BookEntity bookEntity = bookEntityOptional.get();
-		bookEntity.setStatus("en attente 48h");
-		bookEntity.setWaiting48HDate(loanDateManagement.get48HWaitingDate());
-		bookRepository.save(bookEntity);
-		}
-
-	@RequestMapping(method = RequestMethod.POST, path = "/loan/48hwaiting/remove")
-	@ResponseBody
-	public void waitingLine48HRemove (long bookId){
-		Optional<BookEntity> bookEntityOptional = bookRepository.findById(bookId);
-		BookEntity bookEntity = bookEntityOptional.get();
-		ReservationRequestEntity reservationRequestEntity = bookEntity.getReservationRequestEntities().get(0);
-		bookEntity.getUserWaitingLine().remove(0);
-
-
-		if (!bookEntity.getUserWaitingLine().isEmpty()){
-			bookEntity.setStatus("en attente NC");
-		}
-		if (bookEntity.getUserWaitingLine().isEmpty()){
-			bookEntity.setStatus("disponible");
-		}
-
-
-		bookRepository.save(bookEntity);
-		reservationRequestRepository.delete(reservationRequestEntity);
 
 	}
-
 }

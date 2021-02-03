@@ -5,19 +5,9 @@
 	<parent>
 		<groupId>fr.benoitne</groupId>
 		<artifactId>ocr-library-parent</artifactId>
-		<version>1.0</version>
+		<version>1.1</version>
 	</parent>
 	<artifactId>ocr-library-dto</artifactId>
 	<packaging>jar</packaging>
-
-
-<!--	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>-->
 
 </project>
