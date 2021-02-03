@@ -2,15 +2,17 @@ package fr.benoitne.libraryapi.test.service;
 
 import fr.benoitne.libraryapi.persistence.entity.LoanEntity;
 import fr.benoitne.libraryapi.service.LoanDateManagementService;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest
+@RunWith(SpringRunner.class)
 public class LoanDateManagementServiceTest {
 
     LoanDateManagementService loanDateManagementService = new LoanDateManagementService();

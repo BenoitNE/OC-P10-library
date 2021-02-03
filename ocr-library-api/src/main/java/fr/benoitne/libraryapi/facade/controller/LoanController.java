@@ -2,10 +2,12 @@ package fr.benoitne.libraryapi.facade.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import fr.benoitne.libraryapi.exeption.ResourceNotFoundException;
 import fr.benoitne.libraryapi.facade.assembler.LoanArchiveEntityBuilder;
 import fr.benoitne.libraryapi.persistence.entity.*;
 import fr.benoitne.libraryapi.persistence.repository.*;
@@ -81,65 +83,69 @@ public class LoanController {
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/add")
 	@ResponseBody
 	public LoanDTO newLoan(long userId, long bookId) {
-		LoanEntity loanEntity = add(userId, bookId);
+
+			LoanEntity loanEntity = add(userId, bookId);
 		return loanDTOAssembler.convertToDTO(loanEntity);
+
 	}
 
 	private LoanEntity add(long userId, long bookId) {
-		LoanEntity loanEntity = new LoanEntity();
-		ReservationRequestEntity reservationRequestEntity = new ReservationRequestEntity();
-		Optional<BookEntity> optBookEntity = bookRepository.findById(bookId);
-		Optional<UserEntity> optUserEntity = userRepository.findById(userId);
-		BookEntity bookEntity = optBookEntity.get();
-		UserEntity userEntity = optUserEntity.get();
-		List<LoanEntity> loanEntityList = bookEntity.getLoanEntity();
-		List<String> userWaitingLine = bookEntity.getUserWaitingLine();
-		List<ReservationRequestEntity> reservationRequestEntities = bookEntity.getReservationRequestEntities();
-		List<String> bookTitles = new ArrayList<>();
+		try {
+			LoanEntity loanEntity = new LoanEntity();
+			ReservationRequestEntity reservationRequestEntity = new ReservationRequestEntity();
+			Optional<BookEntity> optBookEntity = bookRepository.findById(bookId);
+			Optional<UserEntity> optUserEntity = userRepository.findById(userId);
+			BookEntity bookEntity = optBookEntity.get();
+			UserEntity userEntity = optUserEntity.get();
+			List<LoanEntity> loanEntityList = bookEntity.getLoanEntity();
+			List<String> userWaitingLine = bookEntity.getUserWaitingLine();
+			List<ReservationRequestEntity> reservationRequestEntities = bookEntity.getReservationRequestEntities();
+			List<String> bookTitles = new ArrayList<>();
 
-		if(!userEntity.getLoanEntity().isEmpty())
-		for (LoanEntity loan :  userEntity.getLoanEntity()){
-			bookTitles.add(loan.getBookEntity().getTitle());
-		}
-
-		if(!bookTitles.contains(bookEntity.getTitle())) {
-
-			if (optBookEntity.isPresent() && optUserEntity.isPresent()) {
-				List<LoanEntity> loanEntities = (List<LoanEntity>) loanRepository.findAll();
-				loanEntity.setId(loanEntities.size() + 1);
-				loanEntity.setStartBorrowingDate(loanDateManagementService.getStartBorrowingDate());
-				loanEntity.setEndBorrowingDate(loanDateManagementService.getEndBorrowingDate());
-				loanEntity.setBookEntity(bookEntity);
-				loanEntity.setUserEntity(userEntity);
-				setLoanStatusService.initialStatus(loanEntity);
-
-
-				if ((bookEntity.getQuantity()) - (loanEntityList.size()) < 1) {
-					userWaitingLine.add(userEntity.getUserName());
-					bookEntity.setUserWaitingLine(userWaitingLine);
-					reservationRequestEntity.setId(reservationRequestEntities.size() + 1);
-					reservationRequestEntity.setStatus("Demande de réservation en cours");
-					reservationRequestEntity.setBookEntity(bookEntity);
-					reservationRequestEntity.setUserEntity(userEntity);
-					reservationRequestEntity.setStartingDate(loanDateManagementService.getStartBorrowingDate());
-					reservationRequestRepository.save(reservationRequestEntity);
-
+			if (!userEntity.getLoanEntity().isEmpty())
+				for (LoanEntity loan : userEntity.getLoanEntity()) {
+					bookTitles.add(loan.getBookEntity().getTitle());
 				}
 
-				if ((bookEntity.getQuantity()) - (loanEntityList.size()) <= 1) {
-					bookEntity.setStatus("indisponible");
+			if (!bookTitles.contains(bookEntity.getTitle())) {
+
+				if (optBookEntity.isPresent() && optUserEntity.isPresent()) {
+					List<LoanEntity> loanEntities = (List<LoanEntity>) loanRepository.findAll();
+					loanEntity.setId(loanEntities.size() + 1);
+					loanEntity.setStartBorrowingDate(loanDateManagementService.getStartBorrowingDate());
+					loanEntity.setEndBorrowingDate(loanDateManagementService.getEndBorrowingDate());
+					loanEntity.setBookEntity(bookEntity);
+					loanEntity.setUserEntity(userEntity);
+					setLoanStatusService.initialStatus(loanEntity);
+
+
+					if ((bookEntity.getQuantity()) - (loanEntityList.size()) < 1) {
+						userWaitingLine.add(userEntity.getUserName());
+						bookEntity.setUserWaitingLine(userWaitingLine);
+						reservationRequestEntity.setId(reservationRequestEntities.size() + 1);
+						reservationRequestEntity.setStatus("Demande de réservation en cours");
+						reservationRequestEntity.setBookEntity(bookEntity);
+						reservationRequestEntity.setUserEntity(userEntity);
+						reservationRequestEntity.setStartingDate(loanDateManagementService.getStartBorrowingDate());
+						reservationRequestRepository.save(reservationRequestEntity);
+
+					}
+
+					if ((bookEntity.getQuantity()) - (loanEntityList.size()) <= 1) {
+						bookEntity.setStatus("indisponible");
+					}
 				}
+
+				bookRepository.save(bookEntity);
+
+				if (bookEntity.getUserWaitingLine().isEmpty())
+					loanRepository.save(loanEntity);
 			}
-
-			bookRepository.save(bookEntity);
-
-
-			if(bookEntity.getUserWaitingLine().isEmpty())
-			loanRepository.save(loanEntity);
-
-		}
 			return loanEntity;
+		} catch (Exception e){
+			return null;
 		}
+	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
 	@ResponseBody
