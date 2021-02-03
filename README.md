@@ -18,6 +18,7 @@ spring-boot 2.3.3.RELEASE
 2. spring-boot-starter-web
 3. hibernate-search-orm
 4. h2
+5. spring-boot-starter-test
 
 ### ocr-library-batch
 

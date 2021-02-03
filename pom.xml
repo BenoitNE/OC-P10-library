@@ -6,7 +6,7 @@
 
 	<groupId>fr.benoitne</groupId>
 	<artifactId>ocr-library-parent</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<name>ocr-library-parent</name>
 	<packaging>pom</packaging>
 	<description>Développez le nouveau système d’information de la bibliothèque d’une grande ville</description>

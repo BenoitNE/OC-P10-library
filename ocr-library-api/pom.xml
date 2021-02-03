@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>fr.benoitne</groupId>
 		<artifactId>ocr-library-parent</artifactId>
-		<version>1.0</version>
+		<version>1.1</version>
 	</parent>
 	<artifactId>ocr-library-api</artifactId>
 	<packaging>war</packaging>
@@ -31,18 +31,12 @@
 		<dependency>
 			<groupId>fr.benoitne</groupId>
 			<artifactId>ocr-library-dto</artifactId>
-			<version>1.0</version>
+			<version>1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.mockito</groupId>-->
-<!--			<artifactId>mockito-junit-jupiter</artifactId>-->
-<!--			<version>3.7.7</version>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
 	</dependencies>
 
 	<build>
