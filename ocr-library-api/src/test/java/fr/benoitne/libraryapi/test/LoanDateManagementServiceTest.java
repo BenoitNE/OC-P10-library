@@ -1,4 +1,4 @@
-package fr.benoitne.libraryapi.test.service;
+package fr.benoitne.libraryapi.test;
 
 import fr.benoitne.libraryapi.persistence.entity.LoanEntity;
 import fr.benoitne.libraryapi.service.LoanDateManagementService;
@@ -26,22 +26,23 @@ public class LoanDateManagementServiceTest {
 
     @Test
     public void getReturnDateWithOnlyEndBorrowingDateToCompare() {
-        Assert.assertEquals("2020-09-17T17:55:20.180", loanDateManagementService.getReturnDate(data1()));
+        Assert.assertEquals("2020-09-17T17:55:20.180", loanDateManagementService
+                .getReturnDate(dataForGetReturnDateWithOnlyEndBorrowingDateToCompare()));
     }
 
-    private List<LoanEntity> data1() {
+    private List<LoanEntity> dataForGetReturnDateWithOnlyEndBorrowingDateToCompare() {
         LoanEntity loanEntity1 = new LoanEntity();
         loanEntity1.setId(1);
         loanEntity1.setEndBorrowingDate("2020-09-17T17:55:20.180");
         loanEntity1.setProlongationDate(null);
 
         LoanEntity loanEntity2 = new LoanEntity();
-        loanEntity1.setId(2);
+        loanEntity2.setId(2);
         loanEntity2.setEndBorrowingDate("2020-09-22T17:55:20.180");
         loanEntity2.setProlongationDate(null);
 
         LoanEntity loanEntity3 = new LoanEntity();
-        loanEntity1.setId(3);
+        loanEntity3.setId(3);
         loanEntity3.setEndBorrowingDate("2020-09-27T17:55:20.180");
         loanEntity3.setProlongationDate(null);
 
@@ -55,10 +56,11 @@ public class LoanDateManagementServiceTest {
 
     @Test
     public void getReturnDateWithOnlyProlongationDateToCompare() {
-        Assert.assertEquals("2020-10-17T17:55:20.180", loanDateManagementService.getReturnDate(data2()));
+        Assert.assertEquals("2020-10-17T17:55:20.180", loanDateManagementService
+                .getReturnDate(dataForGetReturnDateWithOnlyProlongationDateToCompare()));
     }
 
-    private List<LoanEntity> data2() {
+    private List<LoanEntity> dataForGetReturnDateWithOnlyProlongationDateToCompare() {
         LoanEntity loanEntity1 = new LoanEntity();
         loanEntity1.setEndBorrowingDate("2020-09-17T17:55:20.180");
         loanEntity1.setProlongationDate("2020-10-17T17:55:20.180");
@@ -81,10 +83,11 @@ public class LoanDateManagementServiceTest {
 
     @Test
     public void getReturnDateWithEndBorrowingDateBeforeProlongationDateToCompare() {
-        Assert.assertEquals("2020-09-22T17:55:20.180", loanDateManagementService.getReturnDate(data3()));
+        Assert.assertEquals("2020-09-22T17:55:20.180", loanDateManagementService
+                .getReturnDate(dataGetReturnDateWithEndBorrowingDateBeforeProlongationDateToCompare()));
     }
 
-    private List<LoanEntity> data3() {
+    private List<LoanEntity> dataGetReturnDateWithEndBorrowingDateBeforeProlongationDateToCompare() {
         LoanEntity loanEntity1 = new LoanEntity();
         loanEntity1.setEndBorrowingDate("2020-09-17T17:55:20.180");
         loanEntity1.setProlongationDate("2020-10-17T17:55:20.180");
@@ -107,10 +110,11 @@ public class LoanDateManagementServiceTest {
 
     @Test
     public void getReturnDateWithOneLoanOnlyEndBorrowingDate() {
-        Assert.assertEquals("2020-09-17T17:55:20.180", loanDateManagementService.getReturnDate(data4()));
+        Assert.assertEquals("2020-09-17T17:55:20.180", loanDateManagementService
+                .getReturnDate(dataGetReturnDateWithOneLoanOnlyEndBorrowingDate()));
     }
 
-    private List<LoanEntity> data4() {
+    private List<LoanEntity> dataGetReturnDateWithOneLoanOnlyEndBorrowingDate() {
         LoanEntity loanEntity1 = new LoanEntity();
         loanEntity1.setEndBorrowingDate("2020-09-17T17:55:20.180");
         loanEntity1.setProlongationDate(null);
@@ -123,10 +127,11 @@ public class LoanDateManagementServiceTest {
 
     @Test
     public void getReturnDateWithOneLoanOnlyProlongationDate() {
-        Assert.assertEquals("2020-10-17T17:55:20.180", loanDateManagementService.getReturnDate(data5()));
+        Assert.assertEquals("2020-10-17T17:55:20.180", loanDateManagementService
+                .getReturnDate(dataGetReturnDateWithOneLoanOnlyProlongationDate()));
     }
 
-    private List<LoanEntity> data5() {
+    private List<LoanEntity> dataGetReturnDateWithOneLoanOnlyProlongationDate() {
         LoanEntity loanEntity1 = new LoanEntity();
         loanEntity1.setEndBorrowingDate("2020-09-17T17:55:20.180");
         loanEntity1.setProlongationDate("2020-10-17T17:55:20.180");
@@ -139,10 +144,11 @@ public class LoanDateManagementServiceTest {
 
     @Test
     public void getReturnDateWithEndBorrowingDateBeforeProlongationDateToCompareThirdLoan() {
-        Assert.assertEquals("2020-09-27T17:55:20.180", loanDateManagementService.getReturnDate(data6()));
+        Assert.assertEquals("2020-09-27T17:55:20.180", loanDateManagementService
+                .getReturnDate(dataGetReturnDateWithEndBorrowingDateBeforeProlongationDateToCompareThirdLoan()));
     }
 
-    private List<LoanEntity> data6() {
+    private List<LoanEntity> dataGetReturnDateWithEndBorrowingDateBeforeProlongationDateToCompareThirdLoan() {
         LoanEntity loanEntity1 = new LoanEntity();
         loanEntity1.setEndBorrowingDate("2020-09-17T17:55:20.180");
         loanEntity1.setProlongationDate("2020-10-17T17:55:20.180");
@@ -165,10 +171,10 @@ public class LoanDateManagementServiceTest {
 
     @Test
     public void testIfListLoanEntityIsNull() {
-        Assert.assertEquals("Date de retour indisponible", loanDateManagementService.getReturnDate(data7()));
+        Assert.assertEquals("Date de retour indisponible", loanDateManagementService.getReturnDate(dataForTestIfListLoanEntityIsNull()));
     }
 
-    private List<LoanEntity> data7() {
+    private List<LoanEntity> dataForTestIfListLoanEntityIsNull() {
         List<LoanEntity> loanEntityList = null;
         return loanEntityList;
     }
