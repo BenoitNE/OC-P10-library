@@ -149,32 +149,37 @@ public class LoanController {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/return")
 	@ResponseBody
-	public String loanReturn (long loanId){
-		Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
-		LoanArchiveEntityBuilder archiveBuilder = new LoanArchiveEntityBuilder();
-		LoanEntity loanEntity = optLoanEntity.get();
-		BookEntity bookEntity = loanEntity.getBookEntity();
-		UserEntity userEntity = loanEntity.getUserEntity();
-		LoanArchiveEntity loanArchiveEntity = archiveBuilder.getLoanArchiveEntity(loanEntity);
+	public String loanReturn (long loanId) {
 
-		if (!bookEntity.getUserWaitingLine().isEmpty()){
-			loanArchiveRepository.save(loanArchiveEntity);
-			bookEntity.setStatus("en attente NC");
+		try {
+			Optional<LoanEntity> optLoanEntity = loanRepository.findById(loanId);
+			LoanArchiveEntityBuilder archiveBuilder = new LoanArchiveEntityBuilder();
+			LoanEntity loanEntity = optLoanEntity.get();
+			BookEntity bookEntity = loanEntity.getBookEntity();
+			UserEntity userEntity = loanEntity.getUserEntity();
+			LoanArchiveEntity loanArchiveEntity = archiveBuilder.getLoanArchiveEntity(loanEntity);
 
-			if (loanEntity.getWaiting48HDate()!=null){
-				bookEntity.getUserWaitingLine().remove(0);
+			if (!bookEntity.getUserWaitingLine().isEmpty()) {
+				loanArchiveRepository.save(loanArchiveEntity);
+				bookEntity.setStatus("en attente NC");
+
+				if (loanEntity.getWaiting48HDate() != null) {
+					bookEntity.getUserWaitingLine().remove(0);
+				}
 			}
+
+			if (bookEntity.getUserWaitingLine().isEmpty()) {
+				loanArchiveRepository.save(loanArchiveEntity);
+				bookEntity.setStatus("disponible");
+			}
+			bookRepository.save(bookEntity);
+			loanRepository.delete(loanEntity);
+
+			return "Le livre à bien été retourné.";
+
+		} catch (Exception e) {
+			return "Le livre ne peut pas être rendu.";
 		}
 
-		if (bookEntity.getUserWaitingLine().isEmpty()){
-			loanArchiveRepository.save(loanArchiveEntity);
-			bookEntity.setStatus("disponible");
-		}
-		bookRepository.save(bookEntity);
-		loanRepository.delete(loanEntity);
-
-		return "Le livre à bien été retourné.";
 	}
-
-
 }
