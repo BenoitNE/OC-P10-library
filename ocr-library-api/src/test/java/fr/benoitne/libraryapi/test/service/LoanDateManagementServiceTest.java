@@ -4,11 +4,13 @@ import fr.benoitne.libraryapi.persistence.entity.LoanEntity;
 import fr.benoitne.libraryapi.service.LoanDateManagementService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SpringBootTest
 public class LoanDateManagementServiceTest {
 
     LoanDateManagementService loanDateManagementService = new LoanDateManagementService();
