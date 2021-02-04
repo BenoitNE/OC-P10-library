@@ -28,7 +28,11 @@ public class LoanDateManagementService {
 		String endBorrowingDate = loanEntity.map(x -> x.getEndBorrowingDate()).get();
 		loanEntity.get().setProlongationDate(getProlongationDate(endBorrowingDate));
 		return loanEntity;
+	}
 
+	public Optional<LoanEntity> setLoanProlongationDateWhenEndBorrowingDateIsPassed(Optional<LoanEntity> loanEntity) {
+		loanEntity.get().setProlongationDate("Vous ne pouvez plus prolonger le prêt.");
+		return loanEntity;
 	}
 
 	public String getStartBorrowingDate() {
@@ -85,6 +89,13 @@ public class LoanDateManagementService {
 		}
 		return "Date de retour indisponible";
 	}
+
+	public boolean dateListEndBorrowingDateIsPassed(LoanEntity loanEntity){
+		LocalDateTime dateNow = LocalDateTime.now();
+		return LocalDateTime.parse((loanEntity.getEndBorrowingDate()))
+				.isBefore(dateNow);
+	}
+
 }
 
 

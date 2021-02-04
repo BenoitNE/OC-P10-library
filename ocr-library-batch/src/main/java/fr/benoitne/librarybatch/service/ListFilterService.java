@@ -12,12 +12,12 @@ public class ListFilterService {
 		LocalDateTime prolongDate;
 		LocalDateTime now = LocalDateTime.now();
 
-		if (prolongationDate==null) {
+		if (prolongationDate==null||prolongationDate.equals("Vous ne pouvez plus prolonger le prêt.")) {
 			if (now.compareTo(endDate) > 0) {
 				return true;
 			}
 		}
-		if (prolongationDate!=null) {
+		if (prolongationDate!=null&&!prolongationDate.equals("Vous ne pouvez plus prolonger le prêt.")) {
 			prolongDate = LocalDateTime.parse(prolongationDate);
 			if (now.compareTo(prolongDate) > 0) {
 				return true;

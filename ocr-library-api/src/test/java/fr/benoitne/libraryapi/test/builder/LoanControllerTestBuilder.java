@@ -70,9 +70,9 @@ public class LoanControllerTestBuilder {
         LoanEntity loanEntity = new LoanEntity();
         loanEntity.setId(1);
         loanEntity.setStatus("En cours de prêt");
-        loanEntity.setEndBorrowingDate("2020-10-31T16:43:21.450");
+        loanEntity.setEndBorrowingDate("2021-03-01T16:43:21.450");
         loanEntity.setProlongationDate(null);
-        loanEntity.setStartBorrowingDate("2020-09-27T16:43:21.450");
+        loanEntity.setStartBorrowingDate("2021-01-27T16:43:21.450");
         loanEntity.setBookEntity(getBookEntityTest());
         loanEntity.setUserEntity(getUserEntityTest());
 

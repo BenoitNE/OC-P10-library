@@ -71,7 +71,18 @@ public class LoanController {
 	@ResponseBody
 	public Optional<LoanDTO> extendDate(@PathVariable(value = "loanId") long id) {
 		Optional<LoanEntity> loanEntity = loanRepository.findById(id);
-		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatusService.loanInProgress()))) != null) {
+
+		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatusService.loanInProgress()))) != null
+		&&loanDateManagementService.dateListEndBorrowingDateIsPassed(loanEntity.get())){
+			loanEntity.map(x-> loanDateManagementService
+					.setLoanProlongationDateWhenEndBorrowingDateIsPassed(loanEntity));
+			loanEntity.map(x -> setLoanStatusService.prolongationStatus(loanEntity));
+			loanEntity.ifPresent(x -> loanRepository.save(x));
+			return loanEntity.map(x -> loanDTOAssembler.convertToDTO(x));
+		}
+
+		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatusService.loanInProgress()))) != null
+		&&!loanDateManagementService.dateListEndBorrowingDateIsPassed(loanEntity.get())) {
 			loanEntity.map(x -> loanDateManagementService.setLoanProlongationDate(loanEntity));
 			loanEntity.map(x -> setLoanStatusService.prolongationStatus(loanEntity));
 			loanEntity.ifPresent(x -> loanRepository.save(x));
