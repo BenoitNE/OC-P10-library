@@ -14,7 +14,7 @@ public class DateTool {
 		String inputFormat = "yyyy-MM-dd'T'HH:mm:ss";
 		String outputFormat = "dd-MM-yyyy";
 		Date date = null;
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "+dateToConvert);
+
 
 		if (dateToConvert.equals("Vous ne pouvez plus prolonger le prêt.")) {
 			return dateToConvert;
