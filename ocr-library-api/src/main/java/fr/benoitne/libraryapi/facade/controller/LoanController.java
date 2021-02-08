@@ -72,15 +72,13 @@ public class LoanController {
 	public Optional<LoanDTO> extendDate(@PathVariable(value = "loanId") long id) {
 		Optional<LoanEntity> loanEntity = loanRepository.findById(id);
 
-		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatusService.loanInProgress()))) != null
-		&&loanDateManagementService.dateListEndBorrowingDateIsPassed(loanEntity.get())){
-			loanEntity.map(x-> loanDateManagementService
-					.setLoanProlongationDateWhenEndBorrowingDateIsPassed(loanEntity));
-			loanEntity.map(x -> setLoanStatusService.prolongationStatus(loanEntity));
-			loanEntity.ifPresent(x -> loanRepository.save(x));
-			return loanEntity.map(x -> loanDTOAssembler.convertToDTO(x));
-		}
+		Optional<LoanDTO> loanEntity1 = getLoanDTOWhenEndBorrowingDateIsPassed(loanEntity);
+		if (loanEntity1 != null) return loanEntity1;
 
+		return getLoanDTOWhenEndBorrowingDateIsNotPassed(loanEntity);
+	}
+
+	private Optional<LoanDTO> getLoanDTOWhenEndBorrowingDateIsNotPassed(Optional<LoanEntity> loanEntity) {
 		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatusService.loanInProgress()))) != null
 		&&!loanDateManagementService.dateListEndBorrowingDateIsPassed(loanEntity.get())) {
 			loanEntity.map(x -> loanDateManagementService.setLoanProlongationDate(loanEntity));
@@ -89,6 +87,18 @@ public class LoanController {
 			return loanEntity.map(x -> loanDTOAssembler.convertToDTO(x));
 		} else
 			return null;
+	}
+
+	private Optional<LoanDTO> getLoanDTOWhenEndBorrowingDateIsPassed(Optional<LoanEntity> loanEntity) {
+		if ((loanEntity.map(x -> x.getStatus().equals(setLoanStatusService.loanInProgress()))) != null
+		&&loanDateManagementService.dateListEndBorrowingDateIsPassed(loanEntity.get())){
+			loanEntity.map(x-> loanDateManagementService
+					.setLoanProlongationDateWhenEndBorrowingDateIsPassed(loanEntity));
+			loanEntity.map(x -> setLoanStatusService.prolongationStatus(loanEntity));
+			loanEntity.ifPresent(x -> loanRepository.save(x));
+			return loanEntity.map(x -> loanDTOAssembler.convertToDTO(x));
+		}
+		return null;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/loan/add")
