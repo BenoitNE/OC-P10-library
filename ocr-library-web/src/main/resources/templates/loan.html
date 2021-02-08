@@ -61,8 +61,11 @@
 									th:text="${loans.endBorrowingDate}" /></strong></label> <label
 								th:if="${loans.status=='Prêt prolongé'}"><strong><td
 									th:text="${loans.prolongationDate}" /></strong></label>
-							<div class="alert alert-info" th:if="${loans.status=='Prêt prolongé'}">
+							<div class="alert alert-info" th:if="${loans.status=='Prêt prolongé'&&loans.prolongationDate!='Vous ne pouvez plus prolonger le prêt.'}">
 								<strong>Info!</strong> Votre prêt a été prolongé.
+							</div>
+							<div class="alert alert-warning" th:if="${loans.status=='Prêt prolongé'&&loans.prolongationDate=='Vous ne pouvez plus prolonger le prêt.'}">
+								<strong>Info!</strong> Merci de rapporter l'ouvrage à la bibliothèque.
 							</div>
 							<p class="description">
 								&nbsp;

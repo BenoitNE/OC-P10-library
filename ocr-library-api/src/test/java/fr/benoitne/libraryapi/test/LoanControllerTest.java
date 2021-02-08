@@ -99,11 +99,26 @@ public class LoanControllerTest {
     public void extendDateNominalScenario(){
     Long loanId = builder.getLoanEntityTest().getId();
 
-    when (this.loanRepositoryMock.findById(loanId)).thenReturn(builder.getOptionalLoanEntity(builder.getLoanEntityTest()));
+    when (this.loanRepositoryMock.findById(loanId))
+            .thenReturn(builder.getOptionalLoanEntity(builder.getLoanEntityTest()));
     Optional<LoanDTO> optionalLoanDTO=loanController.extendDate(loanId);
     LoanDTO loanDTO = optionalLoanDTO.get();
 
-    Assert.assertEquals("2020-11-21T16:43:21.450", loanDTO.getProlongationDate());
+    Assert.assertEquals("2021-03-22T16:43:21.450", loanDTO.getProlongationDate());
+    }
+
+    @Test
+    public void extendDateWhenEndBorrowingDateIsPassed(){
+        String datePassed = "2021-01-22T16:43:21.450";
+        LoanEntity loanEntity = builder.getLoanEntityTest();
+        loanEntity.setEndBorrowingDate(datePassed);
+
+        when (this.loanRepositoryMock.findById(loanEntity.getId()))
+                .thenReturn(builder.getOptionalLoanEntity(loanEntity));
+        Optional<LoanDTO> optionalLoanDTO=loanController.extendDate(loanEntity.getId());
+        LoanDTO loanDTO = optionalLoanDTO.get();
+
+        Assert.assertEquals("Vous ne pouvez plus prolonger le prêt.", loanDTO.getProlongationDate());
     }
 
 
